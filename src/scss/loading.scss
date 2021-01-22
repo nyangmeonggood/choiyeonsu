@@ -1,0 +1,29 @@
+@import "./styleguide";
+
+#loading {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  &.active {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .figureBox {
+    @include posCenter;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    figure {
+      width: 30px;
+      transition: transform 0.5s;
+
+      &.active {
+        transform: scale(1.2);
+        z-index: 1;
+      }
+    }
+  }
+}
