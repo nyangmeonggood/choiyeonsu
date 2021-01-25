@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 import TheKingOfMains from "./routes/TheKingOfMains";
 import Buttonbutton from "./routes/Buttonbutton";
 import "./scss/cssReset.scss";
@@ -8,12 +8,12 @@ import Header from "./Components/Header";
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         <Route path="/" exact="true" component={Main} />
         <Route path="/theKingOfMains" component={TheKingOfMains} />
         <Route path="/buttonbutton" component={Buttonbutton} />
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }
