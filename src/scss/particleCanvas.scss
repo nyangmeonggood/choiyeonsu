@@ -1,0 +1,28 @@
+@import "./styleguide.scss";
+
+#Particle {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 10;
+
+  &.active {
+    transition: all 0.5s;
+  }
+
+  canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .titleBox {
+    @include posCenter;
+    @include Black;
+    font-size: 50px;
+    opacity: 0;
+    color: #fff;
+    transition: opacity 0.5s, text-shadow 1s 0.5s;
+  }
+}

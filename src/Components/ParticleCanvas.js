@@ -1,19 +1,23 @@
-import { useEffect, useRef } from "react";
-import { ColorArray } from "./hook/Color.js";
-import "./scss/intro.scss";
+import { useCallback, useEffect, useRef } from "react";
+import { ColorArray } from "../hook/Color.js";
+import "../scss/particleCanvas.scss";
 
-export default function Intro({ stageWidth, stageHeight }) {
-  let $introParticleArray, $ctxIntroCanvas;
-  const maxIntroParticleNumber = 1000;
-  const $introCanvas = useRef();
+export default function ParticleCanvas({ stageWidth, stageHeight }) {
+  const maxParticleCanvasNumber = 1000;
+  const $Particle = useRef(),
+    $ParticleCanvas = useRef(),
+    $ParticleArray = useRef(),
+    $ctxParticleCanvas = useRef(),
+    titleBoxRef = useRef();
   const colorArray = ColorArray;
 
   let mouse = {
-    x: undefined,
-    y: undefined,
+    x: stageWidth / 2,
+    y: stageHeight / 2,
     radius: 100,
   };
 
+  // canvas
   setInterval(() => {
     mouse.x = mouse.y = undefined;
   }, 1000);
@@ -23,25 +27,25 @@ export default function Intro({ stageWidth, stageHeight }) {
     mouse.y = e.clientY;
   };
 
-  const introAnimate = () => {
-    requestAnimationFrame(introAnimate);
-    $ctxIntroCanvas.clearRect(
+  const ParticleAnimate = useCallback(() => {
+    requestAnimationFrame(ParticleAnimate);
+    $ctxParticleCanvas.current.clearRect(
       0,
       0,
-      $ctxIntroCanvas.canvas.width,
-      $ctxIntroCanvas.canvas.height
+      $ctxParticleCanvas.current.canvas.width,
+      $ctxParticleCanvas.current.canvas.height
     );
-    for (var i = 0; i < $introParticleArray.length; i++) {
-      $introParticleArray[i].update($ctxIntroCanvas, mouse);
+    for (var i = 0; i < $ParticleArray.current.length; i++) {
+      $ParticleArray.current[i].update($ctxParticleCanvas.current, mouse);
     }
-  };
+  }, [$ParticleArray, mouse]);
 
   useEffect(() => {
-    $introParticleArray = [];
-    $introCanvas.current.width = stageWidth;
-    $introCanvas.current.height = stageHeight;
+    $ParticleArray.current = [];
+    $ParticleCanvas.current.width = stageWidth;
+    $ParticleCanvas.current.height = stageHeight;
 
-    for (let i = 0; i < maxIntroParticleNumber; i++) {
+    for (let i = 0; i < maxParticleCanvasNumber; i++) {
       let x = Math.random() * (stageWidth - 40) + 20,
         y = Math.random() * (stageHeight - 40) + 20,
         dx = Math.random() * 2 - 1,
@@ -50,38 +54,67 @@ export default function Intro({ stageWidth, stageHeight }) {
         angle = figure + 2,
         color = colorArray[figure];
 
-      $introParticleArray.push(
-        new IntroCanvas(x, y, dx, dy, stageWidth, stageHeight, angle, color)
+      $ParticleArray.current.push(
+        new SetParticleCanvas(
+          x,
+          y,
+          dx,
+          dy,
+          stageWidth,
+          stageHeight,
+          angle,
+          color
+        )
       );
     }
-  }, [stageWidth, stageHeight]);
+
+    $ctxParticleCanvas.current = $ParticleCanvas.current.getContext("2d");
+
+    ParticleAnimate();
+  }, [stageWidth, stageHeight, $ParticleArray, ParticleAnimate, colorArray]);
 
   useEffect(() => {
-    $ctxIntroCanvas = $introCanvas.current.getContext("2d");
-
-    introAnimate();
-  }, [stageWidth, stageHeight]);
-
-  useEffect(() => {
-    $introCanvas.current.addEventListener("mousemove", (e) => {
+    $Particle.current.addEventListener("mousemove", (e) => {
       currentMousePos(e);
     });
 
-    return $introCanvas.current.removeEventListener("mousemove", () => {
+    return $Particle.current.removeEventListener("mousemove", () => {
       currentMousePos();
     });
   });
+  //** canvas
+
+  useEffect(() => {
+    setTimeout(() => {
+      let randomColor = Math.floor(Math.random() * ColorArray.length),
+        longshadow = ``;
+
+      titleBoxRef.current.style.opacity = 1;
+
+      for (let longshadows = 0; longshadows < 10; longshadows++) {
+        longshadow +=
+          (longshadow ? "," : "") +
+          `${longshadows + 1}px ${longshadows + 1}px 0 ${
+            ColorArray[randomColor]
+          }`;
+      }
+      titleBoxRef.current.style.textShadow = longshadow;
+    }, 1000);
+  }, []);
 
   return (
     <>
-      <section id="intro">
-        <canvas id="introCanvas" ref={$introCanvas}></canvas>
+      <section id="Particle" ref={$Particle}>
+        <canvas id="ParticleCanvas" ref={$ParticleCanvas}></canvas>
+        <div className="titleBox" ref={titleBoxRef}>
+          포트폴리오
+        </div>
       </section>
     </>
   );
 }
 
-class IntroCanvas {
+class SetParticleCanvas {
   constructor(x, y, dx, dy, stageWidth, stageHeight, angle, color) {
     this.x = x;
     this.y = y;
@@ -96,7 +129,7 @@ class IntroCanvas {
 
     this.boundary = 30;
     this.minSize = 0;
-    this.maxSize = 20;
+    this.maxSize = 50;
   }
 
   draw(ctx) {
@@ -145,7 +178,7 @@ class IntroCanvas {
         this.size += 3;
       }
     } else if (this.size > this.minSize) {
-      this.size += -0.1;
+      this.size += -1;
     }
 
     if (this.size < 0) this.size = 0;

@@ -1,18 +1,150 @@
+@import "./styleguide.scss";
+
 #intro {
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-  background-color: #f0f0f0;
+  color: #111;
+  text-align: center;
+  font-size: 24px;
+  @include Bold;
+  z-index: 100;
+  background-color: #fff;
 
   &.active {
-    background-color: #fff;
-    transition: all 0.5s;
+    opacity: 0;
+    transition: opacity 0.5s;
   }
 
-  canvas {
-    position: relative;
+  .title {
+    @include posCenter;
+    width: 100%;
+
+    p,
+    ul {
+      @include posCenter;
+      width: 100%;
+      opacity: 0;
+    }
+
+    p {
+      &.greet {
+        &.active {
+          animation: greet 2s forwards;
+          @keyframes greet {
+            0% {
+              opacity: 0;
+            }
+            50% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 0;
+            }
+          }
+        }
+      }
+
+      &.greetEnd {
+        &.active {
+          animation: greetEnd 2s forwards;
+          @keyframes greetEnd {
+            0% {
+              opacity: 0;
+            }
+            50% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .person {
+      display: flex;
+      flex-direction: column-reverse;
+      li {
+        overflow: hidden;
+        span {
+          position: relative;
+          display: block;
+          transform: translate(0%, 100%);
+        }
+      }
+
+      &.active {
+        li {
+          @for $title from 1 through 3 {
+            &:nth-of-type(#{$title}) span {
+              transition-delay: $title * 1s;
+
+              b {
+                transition-delay: $title * 1 + 0.5s;
+              }
+            }
+          }
+          &:nth-of-type(1) b {
+            color: $Red;
+          }
+          &:nth-of-type(2) b {
+            color: $Yellow;
+          }
+          &:nth-of-type(3) b {
+            color: $Blue;
+          }
+          span {
+            transform: translate(0%, 0%);
+            transition: transform 0.5s;
+          }
+        }
+        animation: person 5s forwards;
+        @keyframes person {
+          0% {
+            opacity: 0;
+          }
+          20% {
+            opacity: 1;
+          }
+          80% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .figureBox {
+    @include posCenter;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+
+    figure {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      width: 100vh;
+      height: 100vh;
+
+      &:nth-of-type(1) {
+        transform: translate(-50%, -50%);
+        z-index: 2;
+      }
+
+      &:nth-of-type(2) {
+        z-index: 1;
+        transform: translate(20%, -50%) scale(1.17);
+      }
+
+      &:nth-of-type(3) {
+        transform: translate(100%, -50%) scale(1.005);
+      }
+    }
   }
 }

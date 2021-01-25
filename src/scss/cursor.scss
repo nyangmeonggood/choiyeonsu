@@ -1,0 +1,20 @@
+@import "./styleguide.scss";
+
+#cursor {
+  @include XLight;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  z-index: -1;
+  will-change: auto;
+
+  svg {
+    path {
+      fill: transparent;
+    }
+    textPath {
+      font-size: 40px;
+    }
+  }
+}
