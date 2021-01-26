@@ -13,7 +13,7 @@ export default function Cursor() {
     <>
       <div id="cursor">
         {/* <svg viewBox="0 0 200 200">
-          <path 
+          <path
             id="cursorPath"
             d="
         M 100, 100

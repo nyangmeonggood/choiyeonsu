@@ -23,10 +23,6 @@ export default function Loading({ isLoading, setIsLoading }) {
       setIsLoading(true);
     });
   }, [isLoading, setIsLoading]);
-
-  useEffect(() => {
-    document.querySelector("header").style.display = "none";
-  }, []);
   return (
     <div id="loading">
       <div className="figureBox">

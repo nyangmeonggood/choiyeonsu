@@ -1,0 +1,42 @@
+@import "./styleguide.scss";
+
+#face {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  #FaceCanvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  #mainTitle {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    @include Black;
+    font-size: 13vw;
+    transition: text-shadow 1s 2s;
+    overflow: hidden;
+    padding-right: 10px;
+    box-sizing: border-box;
+    span {
+      display: inline-block;
+      transform: translateY(100%);
+      -webkit-text-stroke: 2px;
+      -webkit-text-stroke-color: #111;
+      color: #111;
+    }
+
+    &.active {
+      span {
+        transform: translateY(0);
+        color: #fff;
+        -webkit-text-stroke: 2px;
+        -webkit-text-stroke-color: #111;
+        transition: transform 0.5s calc(0.1s * var(--i)), color 0.5s 1s,
+          text-stroke 0.5s 1s, text-stroke-color 0.5s 1s;
+      }
+    }
+  }
+}

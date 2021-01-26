@@ -2,29 +2,32 @@ import { useCallback, useEffect, useRef } from "react";
 import { ColorArray } from "../hook/Color.js";
 import "../scss/particleCanvas.scss";
 
-export default function ParticleCanvas({ stageWidth, stageHeight }) {
+export default function ParticleCanvas({ stageWidth, stageHeight, mainRef }) {
   const maxParticleCanvasNumber = 1000;
   const $Particle = useRef(),
     $ParticleCanvas = useRef(),
     $ParticleArray = useRef(),
-    $ctxParticleCanvas = useRef(),
-    titleBoxRef = useRef();
-  const colorArray = ColorArray;
+    $ctxParticleCanvas = useRef();
+  const colorArray = ColorArray,
+    $mainRef = mainRef;
 
-  let mouse = {
+  let $mainRefCurrent;
+
+  let scrollY;
+
+  let canvasMouse = {
     x: stageWidth / 2,
     y: stageHeight / 2,
     radius: 100,
   };
 
   // canvas
-  setInterval(() => {
-    mouse.x = mouse.y = undefined;
-  }, 1000);
-
   const currentMousePos = (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    canvasMouse.x = e.clientX;
+    canvasMouse.y = e.clientY;
+
+    if (canvasMouse.y <= stageHeight * 0.2) canvasMouse.y = stageHeight * 0.2;
+    if (canvasMouse.y >= stageHeight * 0.8) canvasMouse.y = stageHeight * 0.8;
   };
 
   const ParticleAnimate = useCallback(() => {
@@ -35,10 +38,22 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
       $ctxParticleCanvas.current.canvas.width,
       $ctxParticleCanvas.current.canvas.height
     );
-    for (var i = 0; i < $ParticleArray.current.length; i++) {
-      $ParticleArray.current[i].update($ctxParticleCanvas.current, mouse);
+
+    if ($mainRefCurrent) {
+      if ($mainRefCurrent[2] < scrollY && $mainRefCurrent[3] > scrollY) {
+        for (var i = 0; i < $ParticleArray.current.length; i++) {
+          $ParticleArray.current[i].update(
+            $ctxParticleCanvas.current,
+            canvasMouse
+          );
+        }
+      }
     }
-  }, [$ParticleArray, mouse]);
+  }, [$ParticleArray]);
+
+  const scrollEvent = () => {
+    scrollY = window.scrollY;
+  };
 
   useEffect(() => {
     $ParticleArray.current = [];
@@ -67,48 +82,46 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
         )
       );
     }
-
-    $ctxParticleCanvas.current = $ParticleCanvas.current.getContext("2d");
-
-    ParticleAnimate();
-  }, [stageWidth, stageHeight, $ParticleArray, ParticleAnimate, colorArray]);
+  }, [stageWidth, stageHeight, $ParticleArray, colorArray]);
 
   useEffect(() => {
-    $Particle.current.addEventListener("mousemove", (e) => {
+    setInterval(() => {
+      canvasMouse.x = canvasMouse.y = undefined;
+    }, 1000);
+
+    $ctxParticleCanvas.current = $ParticleCanvas.current.getContext("2d");
+    ParticleAnimate();
+
+    $mainRefCurrent = [];
+    for (let i = 0; i < $mainRef.current.children.length; i++) {
+      $mainRefCurrent.push($mainRef.current.children[i].offsetTop);
+    }
+    console.log($mainRefCurrent);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("mousemove", (e) => {
       currentMousePos(e);
     });
 
-    return $Particle.current.removeEventListener("mousemove", () => {
-      currentMousePos();
+    return window.removeEventListener("mousemove", (e) => {
+      currentMousePos(e);
+    });
+  });
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      scrollEvent();
+    });
+
+    return window.removeEventListener("scroll", () => {
+      scrollEvent();
     });
   });
   //** canvas
-
-  useEffect(() => {
-    setTimeout(() => {
-      let randomColor = Math.floor(Math.random() * ColorArray.length),
-        longshadow = ``;
-
-      titleBoxRef.current.style.opacity = 1;
-
-      for (let longshadows = 0; longshadows < 10; longshadows++) {
-        longshadow +=
-          (longshadow ? "," : "") +
-          `${longshadows + 1}px ${longshadows + 1}px 0 ${
-            ColorArray[randomColor]
-          }`;
-      }
-      titleBoxRef.current.style.textShadow = longshadow;
-    }, 1000);
-  }, []);
-
   return (
     <>
       <section id="Particle" ref={$Particle}>
         <canvas id="ParticleCanvas" ref={$ParticleCanvas}></canvas>
-        <div className="titleBox" ref={titleBoxRef}>
-          포트폴리오
-        </div>
       </section>
     </>
   );

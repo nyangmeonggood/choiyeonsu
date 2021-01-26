@@ -5,7 +5,7 @@ import Intro from "./Components/Intro";
 import Loading from "./Components/Loading";
 import Cursor from "./Components/Cursor";
 import About from "./routes/About";
-import ParticleCanvas from "./Components/ParticleCanvas";
+import Face from "./Components/Face";
 
 export default function Main() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +20,7 @@ export default function Main() {
 
   useEffect(() => {
     document.getElementById("loading").classList.add("active");
+    if (window.localStorage.getItem("Intro") === "false") setCompLoading(true);
   }, []);
 
   // resize
@@ -39,12 +40,23 @@ export default function Main() {
       {!isLoading && (
         <Loading isLoading={isLoading} setIsLoading={setIsLoading} />
       )}
-      {isLoading && !compLoading && <Intro setCompLoading={setCompLoading} />}
-
-      {compLoading && (
-        <ParticleCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
+      {isLoading && !compLoading && (
+        <Intro
+          setCompLoading={setCompLoading}
+          stageWidth={stageWidth}
+          stageHeight={stageHeight}
+        />
       )}
-      {compLoading && <About />}
+      {compLoading && (
+        <Face
+          stageWidth={stageWidth}
+          stageHeight={stageHeight}
+          setCompLoading={setCompLoading}
+        />
+      )}
+      {compLoading && (
+        <About stageWidth={stageWidth} stageHeight={stageHeight} />
+      )}
       {isLoading && <Cursor />}
     </>
   );
