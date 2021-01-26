@@ -95,7 +95,7 @@ export default function Intro({ setCompLoading, stageWidth, stageHeight }) {
       <section id="intro" ref={introRef}>
         <div className="title" ref={titleRef}>
           <p className="greet" ref={greetRef}>
-            Hi, there
+            안녕하세요. 반갑습니다.
           </p>
           <ul className="person" ref={personRef}>
             <li>

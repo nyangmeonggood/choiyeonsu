@@ -14,6 +14,11 @@ export default function Header({ menu, setMenu }) {
     setMenu((v) => !v);
   };
 
+  const contactFunc = () => {
+    setMenu((v) => !v);
+    setTimeout(() => window.scrollTo(0, 10000), 100);
+  };
+
   useEffect(() => {
     if (menu) {
       menuModalRef.current.classList.add("active");
@@ -32,7 +37,7 @@ export default function Header({ menu, setMenu }) {
     SeparateText("navButtonButton", "ButtonButton", "span", true);
     SeparateText("navContact", "Contact", "span", true);
 
-    navLi.map((item) => {
+    navLi.forEach((item) => {
       item.addEventListener("mouseenter", () => {
         let randomColor = Math.floor(Math.random() * ColorArray.length);
 
@@ -92,11 +97,7 @@ export default function Header({ menu, setMenu }) {
             </li>
             <li>
               <b>
-                <Link
-                  to="/Buttonbutton"
-                  onClick={toggleMenu}
-                  id="navContact"
-                ></Link>
+                <Link to="/" onClick={contactFunc} id="navContact"></Link>
               </b>
             </li>
           </ul>
@@ -105,7 +106,3 @@ export default function Header({ menu, setMenu }) {
     </>
   );
 }
-
-const navLiHover = (target, colors) => {
-  target.addEventListener("mouseover");
-};

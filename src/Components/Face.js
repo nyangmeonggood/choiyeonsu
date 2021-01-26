@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ColorArray } from "../hook/Color";
 import { SeparateText } from "../hook/SeperateText";
 import "../scss/face.scss";
@@ -18,6 +18,15 @@ export default function Face({ stageWidth, stageHeight, setCompLoading }) {
   };
   useEffect(() => {
     SeparateText("mainTitle", "포트폴리오", "span");
+
+    Object.values(document.getElementById("mainTitle").children).forEach(
+      (item) => {
+        let i = item.dataset.delay;
+        item.style.transition = `color 0.5s 1s, text-stroke 0.5s 1s,
+      text-stroke-color 0.5s 1s, transform 0.5s ${0.1 * i}s`;
+      }
+    );
+
     setTimeout(() => {
       titleBoxRef.current.classList.add("active");
       let randomColor = Math.floor(Math.random() * ColorArray.length),

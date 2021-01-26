@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Parallex, setParallex } from "../hook/Parallex";
 import "../scss/about.scss";
