@@ -1,7 +1,9 @@
+import ShadowTitle from "../hook/ShadowTitle";
+
 export default function TheKingOfMains() {
   return (
     <>
-      <h2>theKingOfMains</h2>
+      <ShadowTitle text={"theKingOfMains"} />
     </>
   );
 }

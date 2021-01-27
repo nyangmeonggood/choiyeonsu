@@ -1,7 +1,9 @@
+import ShadowTitle from "../hook/ShadowTitle";
+
 export default function Buttonbutton() {
   return (
     <>
-      <h2>Buttonbutton</h2>
+      <ShadowTitle text={"Buttonbutton"} />
     </>
   );
 }

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Parallex, setParallex } from "../hook/Parallex";
+import ShadowTitle from "../hook/ShadowTitle";
 import "../scss/about.scss";
-import ParticleCanvas from "../Components/ParticleCanvas.js";
 
-export default function Main({ stageWidth, stageHeight }) {
+export default function About({ stageWidth, stageHeight }) {
   const mainRef = useRef(),
     totalScroll = useRef(),
     parallexDuration = useRef(),
@@ -22,11 +22,11 @@ export default function Main({ stageWidth, stageHeight }) {
       mainRef.current.classList.remove("active");
     }
 
-    if (scrollY >= 100) {
-      document.querySelector("header").classList.add("active");
-    } else {
-      document.querySelector("header").classList.remove("active");
-    }
+    // if (scrollY >= 100) {
+    //   document.querySelector("header").classList.add("active");
+    // } else {
+    //   document.querySelector("header").classList.remove("active");
+    // }
 
     currentPart = setCurrentPart(scrollY, mainRef);
     setPart(mainRef.current.children, currentPart);
@@ -36,7 +36,17 @@ export default function Main({ stageWidth, stageHeight }) {
       1,
       scrollY,
       parallexDuration.current,
-      Parallex.opacity
+      Parallex.frame,
+      2
+    );
+
+    setParallex(
+      document.querySelector(".part6"),
+      6,
+      scrollY,
+      parallexDuration.current,
+      Parallex.frame,
+      2
     );
   };
 
@@ -61,28 +71,36 @@ export default function Main({ stageWidth, stageHeight }) {
 
   return (
     <>
-      <section id="main" ref={mainRef}>
-        <div className="part part1">1</div>
+      <ShadowTitle text={"About"} />
+
+      <section id="about" ref={mainRef}>
+        <div className="part part1 partSection">
+          <div className="partTitle">About ME</div>
+        </div>
         <div className="part part2">2</div>
         <div className="part part3">3</div>
         <div className="part part4">4</div>
         <div className="part part5">5</div>
-        <div className="part part6">
+        <div className="part part6 partSection">
+          <div className="partTitle">Work</div>
+        </div>
+        <div className="part part7">
           <Link to="/theKingOfMains">theKingOfMains</Link>
           <br />
           <Link to="/Buttonbutton">ButtonButton</Link>
         </div>
       </section>
-      <ParticleCanvas
-        stageWidth={stageWidth}
-        stageHeight={stageHeight}
-        mainRef={mainRef}
-      />
     </>
   );
 }
 
 const setPart = (target, num) => {
+  if (num < 0) {
+    Object.values(target).forEach((item) => {
+      item.classList.remove("active");
+    });
+    return;
+  }
   Object.values(target).forEach((item) => {
     item.classList.remove("active");
   });
@@ -94,7 +112,6 @@ const setCurrentPart = (scrollY, target) => {
     (scrollY * target.current.children.length) / target.current.clientHeight - 1
   );
 
-  if (currentPart < 0) currentPart = 0;
   if (currentPart > target.current.children.length - 1)
     currentPart = target.current.children.length - 1;
 

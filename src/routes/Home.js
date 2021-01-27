@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { ColorArray } from "../hook/Color";
 import { SeparateText } from "../hook/SeperateText";
-import "../scss/face.scss";
+import ParticleCanvas from "../Components/ParticleCanvas.js";
+import "../scss/home.scss";
 
-export default function Face({ stageWidth, stageHeight, setCompLoading }) {
-  const titleBoxRef = useRef();
+export default function Home({ stageWidth, stageHeight, setMenu }) {
+  const homeBoxRef = useRef(),
+    titleBoxRef = useRef();
 
   const introOnOff = () => {
     if (window.localStorage.getItem("Intro") === "false") {
@@ -16,8 +18,19 @@ export default function Face({ stageWidth, stageHeight, setCompLoading }) {
       return;
     }
   };
+
+  const toggleMenu = () => {
+    setMenu(true);
+    let randomBlink = Math.floor(Math.random() * ColorArray.length);
+    document.querySelector(".blink").style.backgroundColor =
+      ColorArray[randomBlink];
+  };
   useEffect(() => {
-    SeparateText("mainTitle", "포트폴리오", "span");
+    SeparateText("mainTitle", "ChanceFolio", "span");
+
+    // document.querySelector(
+    //   ".subTitle .year"
+    // ).innerText = new Date().getFullYear();
 
     Object.values(document.getElementById("mainTitle").children).forEach(
       (item) => {
@@ -44,9 +57,19 @@ export default function Face({ stageWidth, stageHeight, setCompLoading }) {
   }, []);
 
   return (
-    <section id="face">
-      <p onClick={introOnOff}>인트로 on/off</p>
-      <div id="mainTitle" ref={titleBoxRef}></div>
-    </section>
+    <>
+      <section id="Home" onClick={toggleMenu}>
+        <p onClick={introOnOff}>인트로 on/off</p>
+        <div id="mainTitleBox">
+          <div className="subTitle">
+            {/* <p>
+              <span className="year"></span> | ChoiYeonsu
+            </p> */}
+          </div>
+          <h2 id="mainTitle" ref={titleBoxRef}></h2>
+        </div>
+      </section>
+      <ParticleCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
+    </>
   );
 }

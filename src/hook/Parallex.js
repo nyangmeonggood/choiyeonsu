@@ -1,5 +1,7 @@
 export const Parallex = {
+  reverseOpacity: [2, 1],
   opacity: [0, 1],
+  frame: [0, 60],
 };
 
 export function setParallex(
@@ -7,7 +9,8 @@ export function setParallex(
   partIndex,
   scrollY,
   parallexDuration,
-  parallexAction
+  parallexAction,
+  action
 ) {
   let returnParallex, relativeScrollY;
 
@@ -20,5 +23,6 @@ export function setParallex(
 
   if (returnParallex >= parallexAction[1]) returnParallex = parallexAction[1];
 
-  target.style.opacity = returnParallex;
+  if (action === 1) target.style.opacity = returnParallex;
+  if (action === 2) target.style.borderWidth = `${returnParallex}px`;
 }

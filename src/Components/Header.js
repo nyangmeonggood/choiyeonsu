@@ -8,15 +8,18 @@ import { ColorArray } from "../hook/Color";
 export default function Header({ menu, setMenu }) {
   const menuRef = useRef(),
     menuModalRef = useRef(),
+    blinkRef = useRef(),
     navRef = useRef();
 
   const toggleMenu = () => {
     setMenu((v) => !v);
+    let randomBlink = Math.floor(Math.random() * ColorArray.length);
+    blinkRef.current.style.backgroundColor = ColorArray[randomBlink];
   };
 
-  const contactFunc = () => {
+  const aboutFunc = () => {
     setMenu((v) => !v);
-    setTimeout(() => window.scrollTo(0, 10000), 100);
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
@@ -32,10 +35,10 @@ export default function Header({ menu, setMenu }) {
   useEffect(() => {
     const navLi = Object.values(navRef.current.children);
 
+    SeparateText("navMain", "Main", "span", true);
     SeparateText("navAbout", "About", "span", true);
     SeparateText("navTheKingOfMains", "TheKingOfMains", "span", true);
     SeparateText("navButtonButton", "ButtonButton", "span", true);
-    SeparateText("navContact", "Contact", "span", true);
 
     navLi.forEach((item) => {
       item.addEventListener("mouseenter", () => {
@@ -66,18 +69,28 @@ export default function Header({ menu, setMenu }) {
       </header>
 
       <section id="menuModal" ref={menuModalRef}>
-        <div className="blink"></div>
-        <div className="menu" onClick={toggleMenu}>
-          닫기
-        </div>
+        <div className="blink" ref={blinkRef}></div>
         <div className="content">
+          <div className="menu" onClick={toggleMenu}>
+            CLOSE
+          </div>
+          <div className="logo">
+            <Logo />
+          </div>
           <ul ref={navRef}>
-            <li>
+            <li data-desc="Go Home">
               <b>
-                <Link to="/" onClick={toggleMenu} id="navAbout"></Link>
+                <Link to="/" onClick={aboutFunc} id="navMain"></Link>
               </b>
             </li>
-            <li>
+
+            <li data-desc="Who is yeonsu?">
+              <b>
+                <Link to="/about" onClick={toggleMenu} id="navAbout"></Link>
+              </b>
+            </li>
+
+            <li data-desc="What is best design of main?">
               <b>
                 <Link
                   to="/theKingOfMains"
@@ -86,18 +99,14 @@ export default function Header({ menu, setMenu }) {
                 ></Link>
               </b>
             </li>
-            <li>
+
+            <li data-desc="Every Buttons what you want">
               <b>
                 <Link
                   to="/Buttonbutton"
                   onClick={toggleMenu}
                   id="navButtonButton"
                 ></Link>
-              </b>
-            </li>
-            <li>
-              <b>
-                <Link to="/" onClick={contactFunc} id="navContact"></Link>
               </b>
             </li>
           </ul>

@@ -2,7 +2,12 @@ import { useCallback, useEffect, useRef } from "react";
 import { ColorArray } from "../hook/Color";
 import "../scss/intro.scss";
 
-export default function Intro({ setCompLoading, stageWidth, stageHeight }) {
+export default function Intro({
+  setCompLoading,
+  stageWidth,
+  stageHeight,
+  setMenu,
+}) {
   const introRef = useRef(""),
     titleRef = useRef(""),
     greetRef = useRef(""),
@@ -28,6 +33,11 @@ export default function Intro({ setCompLoading, stageWidth, stageHeight }) {
     introRef.current.addEventListener("transitionend", () => {
       setCompLoading(true);
       window.localStorage.setItem("Intro", false);
+
+      let randomBlink = Math.floor(Math.random() * ColorArray.length);
+      document.querySelector(".blink").style.backgroundColor =
+        ColorArray[randomBlink];
+      setMenu(true);
     });
   };
 

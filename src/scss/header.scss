@@ -1,11 +1,11 @@
 @import "./styleguide";
 
 header {
-  display: none;
+  display: flex;
   position: fixed;
   top: 0;
   left: 50%;
-  width: 95%;
+  width: 97%;
   max-width: 1920px;
   height: 60px;
   transform: translateX(-50%);
@@ -13,8 +13,50 @@ header {
   align-items: center;
   justify-content: space-between;
 
-  &.active {
-    display: flex;
+  &:hover {
+    h1 {
+      svg {
+        circle {
+          animation: titleCircle 1.2s infinite;
+          animation-direction: alternate;
+          transform-origin: center;
+          @keyframes titleCircle {
+            0% {
+              transform: translate(0%, 0%) scale(0.95);
+            }
+            100% {
+              transform: translate(-5%, -7%) scale(1);
+            }
+          }
+        }
+        rect {
+          animation: titleRect 1s infinite;
+          animation-direction: alternate;
+          transform-origin: center bottom;
+          @keyframes titleRect {
+            0% {
+              transform: translate(0) rotate(0deg);
+            }
+            100% {
+              transform: translate(5%, 5%) rotate(10deg);
+            }
+          }
+        }
+        polygon {
+          animation: titlePolygon 1s infinite;
+          animation-direction: alternate;
+          transform-origin: center bottom;
+          @keyframes titlePolygon {
+            0% {
+              transform: translate(3%, 10%) rotate(-10deg);
+            }
+            100% {
+              transform: translate(0) rotate(0deg);
+            }
+          }
+        }
+      }
+    }
   }
 
   h1 {
@@ -59,20 +101,26 @@ header {
   left: 100%;
   width: 100%;
   height: 100vh;
-  background-color: navy;
   z-index: 1000;
   overflow: hidden;
-  transition: left 0.5s;
+  transition: left 0.8s;
+  .blink {
+    width: 100%;
+    height: 100%;
+  }
 
   &.active {
     left: 0%;
     .content {
+      left: 0;
+      transition: left 1.2s ease-out 0s;
       > ul {
         li {
           b {
             span {
               transform: translateY(0);
-              transition: transform 0.5s calc(0.1s * var(--i));
+              transition: transform 0.5s;
+              transition-delay: calc(0.1s * var(--i));
             }
           }
         }
@@ -88,35 +136,60 @@ header {
     transform: translateY(-50%) rotate(90deg);
     z-index: 1;
     cursor: pointer;
+    letter-spacing: 0.1em;
   }
   .content {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 50%;
     width: 100%;
     height: 100%;
     background-color: #fff;
+    transition: left 3s 0.2s;
+
+    .logo {
+      width: 45%;
+      height: 100%;
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
 
     > ul {
       position: absolute;
       top: 50%;
-      right: 5%;
+      right: 2%;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
       li {
+        position: relative;
         display: inline-block;
         text-align: right;
-        overflow: hidden;
-        padding-right: 10px;
-        box-sizing: border-box;
+        // &::after {
+        //   @include XLight;
+        //   content: attr(data-desc);
+        //   position: absolute;
+        //   bottom: 90%;
+        //   right: 0;
+        //   font-size: 0.8vw;
+        //   text-shadow: none !important;
+        // }
+
         b {
           @include Black;
-          font-size: 8vw;
+          display: contents;
+          font-size: 7vw;
           color: transparent;
           -webkit-text-stroke: 2px;
           -webkit-text-stroke-color: #111;
           a {
+            display: inline-block;
+            height: 100%;
+            overflow: hidden;
+            padding-right: 10px;
+            box-sizing: border-box;
             span {
               display: inline-block;
               transform: translateY(100%);

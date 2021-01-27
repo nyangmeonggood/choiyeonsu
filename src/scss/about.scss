@@ -1,11 +1,13 @@
 @import "./styleguide.scss";
 
-#main {
+#about {
   position: relative;
   width: 100%;
   min-height: 100vh;
 
   &.active {
+    .part {
+    }
   }
 
   .part {
@@ -15,8 +17,22 @@
     align-items: center;
     justify-content: center;
     font-size: 100px;
-    &.active {
-      z-index: 1;
+    box-sizing: border-box;
+
+    .partTitle {
+      @include Black;
+    }
+
+    &.part1 {
+      background-color: $Yellow;
+    }
+
+    &.part6 {
+      background-color: $Yellow;
+    }
+
+    &.partSection {
+      border: 0px solid #fff;
     }
   }
 }

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { ColorArray } from "../hook/Color.js";
 import "../scss/particleCanvas.scss";
 
-export default function ParticleCanvas({ stageWidth, stageHeight }) {
+export default function ParticleCanvas({ stageWidth, stageHeight, mainRef }) {
   const maxParticleCanvasNumber = 1000;
   const $Particle = useRef(),
     $ParticleCanvas = useRef(),
@@ -10,7 +10,8 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
     $Cursor = useRef(),
     $GridArray = useRef(),
     $ctxParticleCanvas = useRef();
-  const colorArray = ColorArray;
+  const colorArray = ColorArray,
+    $mainRef = mainRef;
 
   let $mainRefCurrent, mouseoutInterval;
 
@@ -19,6 +20,8 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
   let canvasMouse = {
     x: undefined,
     y: undefined,
+    rx: undefined,
+    ry: undefined,
     radius: 100,
   };
 
@@ -26,6 +29,8 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
   const currentMousePos = (e) => {
     canvasMouse.x = e.clientX;
     canvasMouse.y = e.clientY;
+    canvasMouse.rx = e.offsetX;
+    canvasMouse.ry = e.offsetY;
   };
 
   const ParticleAnimate = useCallback(() => {
@@ -47,19 +52,56 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
     //   30
     // );
 
-    for (var i = 0; i < $ParticleArray.current.length; i++) {
-      $ParticleArray.current[i].update($ctxParticleCanvas.current, canvasMouse);
+    if ($mainRefCurrent) {
+      // if ($mainRefCurrent[2] >= scrollY || $mainRefCurrent[3] < scrollY) {
+      //   $Cursor.current[0].update($ctxParticleCanvas.current, canvasMouse);
+      // }
+
+      if ($mainRefCurrent[1] >= scrollY) {
+        for (var i = 0; i < $ParticleArray.current.length; i++) {
+          $ParticleArray.current[i].update(
+            $ctxParticleCanvas.current,
+            canvasMouse
+          );
+        }
+      }
+
+      if ($mainRefCurrent[0] < scrollY && $mainRefCurrent[1] < scrollY) {
+        for (var i = 0; i < $GridArray.current.length; i++) {
+          $GridArray.current[i].update($ctxParticleCanvas.current);
+        }
+      }
     }
   }, []);
 
   const scrollEvent = () => {
     scrollY = window.scrollY;
+    if ($mainRefCurrent) {
+      // if ($mainRefCurrent[2] < scrollY && $mainRefCurrent[3] > scrollY) {
+      //   mouseoutInterval = setTimeout(() => {
+      //     canvasMouse.x = canvasMouse.y = undefined;
+      //   }, 1000);
+      // } else {
+      //   clearTimeout(mouseoutInterval);
+      // } **disappearCursor
+      // if ($mainRefCurrent[5] <= scrollY) {
+      //   $Cursor.current[0].part = "2";
+      //   $Cursor.current[0].size = 50;
+      // } else {
+      //   $Cursor.current[0].part = "1";
+      //   $Cursor.current[0].size = -75;
+      // } **changeCursor
+    }
   };
 
   useEffect(() => {
     $ParticleArray.current = [];
+    $GridArray.current = [];
     $ParticleCanvas.current.width = stageWidth;
     $ParticleCanvas.current.height = stageHeight;
+    let gap;
+    if (stageWidth >= stageHeight) gap = stageWidth / 16.5;
+    if (stageHeight >= stageWidth) gap = stageHeight / 16.5;
 
     for (let i = 0; i < maxParticleCanvasNumber; i++) {
       let x = Math.random() * (stageWidth - 40) + 20,
@@ -83,11 +125,48 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
         )
       );
     }
+
+    for (let i = 0; i < 9; i++) {
+      let x = stageWidth / 2 - gap * i,
+        y = stageHeight / 2;
+
+      $GridArray.current.push(
+        new setGrid(x, y, stageWidth, stageHeight, "vertical")
+      );
+
+      x = stageWidth / 2 + gap * i;
+      y = stageHeight / 2;
+
+      $GridArray.current.push(
+        new setGrid(x, y, stageWidth, stageHeight, "vertical")
+      );
+      x = stageWidth / 2;
+      y = stageHeight / 2 - gap * i;
+
+      $GridArray.current.push(
+        new setGrid(x, y, stageWidth, stageHeight, "horizon")
+      );
+      x = stageWidth / 2;
+      y = stageHeight / 2 + gap * i;
+
+      $GridArray.current.push(
+        new setGrid(x, y, stageWidth, stageHeight, "horizon")
+      );
+    }
+    // $Cursor.current = [];
+    // $Cursor.current.push(
+    //   new setCursor("SCROLLDOWN", 0, 0, "#dbdbdb", "1", -75, Math.PI * 2)
+    // ); ** setCursor
   }, [stageWidth, stageHeight, $ParticleArray, $GridArray, colorArray]);
 
   useEffect(() => {
     $ctxParticleCanvas.current = $ParticleCanvas.current.getContext("2d");
     ParticleAnimate();
+
+    $mainRefCurrent = [];
+    for (let i = 0; i < $mainRef.current.children.length; i++) {
+      $mainRefCurrent.push($mainRef.current.children[i].offsetTop);
+    }
   }, []);
 
   //mousemove
@@ -237,6 +316,53 @@ class setCursor {
       this.startRotation += 0.003;
     }
     if (this.part === "2") {
+    }
+    this.draw(ctx);
+  }
+}
+
+class setGrid {
+  constructor(x, y, stageWidth, stageHeight, direction) {
+    this.x = x;
+    this.y = y;
+    this.stageWidth = stageWidth;
+    this.stageHeight = stageHeight;
+    this.direction = direction;
+    this.size = 0;
+  }
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    if (this.direction === "horizon") {
+      ctx.moveTo(this.size, 0);
+      ctx.lineTo(-this.size, 0);
+      ctx.strokeStyle = "#dbdbdb";
+      ctx.stroke();
+    }
+    if (this.direction === "vertical") {
+      ctx.moveTo(0, this.size);
+      ctx.lineTo(0, -this.size);
+      ctx.strokeStyle = "#dbdbdb";
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  update(ctx) {
+    if (this.direction === "horizon" && this.size < this.stageWidth * 0.8) {
+      this.size += 2;
+    }
+
+    if (this.direction === "horizon" && this.size >= this.stageWidth * 0.8) {
+      this.size = this.stageWidth * 0.8;
+    }
+
+    if (this.direction === "vertical" && this.size < this.stageHeight * 0.8) {
+      this.size += 2;
+    }
+
+    if (this.direction === "vertical" && this.size >= this.stageHeight * 0.8) {
+      this.size = this.stageHeight * 0.8;
     }
     this.draw(ctx);
   }

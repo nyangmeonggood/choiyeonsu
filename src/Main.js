@@ -4,10 +4,10 @@ import "./scss/app.scss";
 import Intro from "./Components/Intro";
 import Loading from "./Components/Loading";
 import Cursor from "./Components/Cursor";
-import About from "./routes/About";
-import Face from "./Components/Face";
+import Home from "./routes/Home";
+import { ColorArray } from "./hook/Color";
 
-export default function Main() {
+export default function Main({ setMenu }) {
   const [isLoading, setIsLoading] = useState(false);
   const [compLoading, setCompLoading] = useState(false);
   const [stageWidth, setStageWidth] = useState(document.body.clientWidth);
@@ -45,19 +45,17 @@ export default function Main() {
           setCompLoading={setCompLoading}
           stageWidth={stageWidth}
           stageHeight={stageHeight}
+          setMenu={setMenu}
         />
       )}
       {compLoading && (
-        <Face
+        <Home
           stageWidth={stageWidth}
           stageHeight={stageHeight}
-          setCompLoading={setCompLoading}
+          setMenu={setMenu}
         />
       )}
-      {compLoading && (
-        <About stageWidth={stageWidth} stageHeight={stageHeight} />
-      )}
-      {isLoading && <Cursor />}
+      {/* {isLoading && <Cursor />} */}
     </>
   );
 }
