@@ -3,10 +3,12 @@ import { ColorArray } from "../hook/Color";
 import { SeparateText } from "../hook/SeperateText";
 import "../scss/shadowTitle.scss";
 
-export default function ShadowTitle({ text }) {
+export default function ShadowTitle({ id, text }) {
   const ShadowTitleRef = useRef();
+  let shadowId = id ? `${id}` : `shadow${text}`;
   useEffect(() => {
-    SeparateText(`shadow${text}`, text, "span");
+    SeparateText(shadowId, text, "span");
+    let duration = ShadowTitleRef.current.children.length * 0.5 + 0.5;
 
     Object.values(ShadowTitleRef.current.children).forEach((item) => {
       let i = item.dataset.delay;
@@ -15,22 +17,23 @@ export default function ShadowTitle({ text }) {
     });
 
     setTimeout(() => {
-      ShadowTitleRef.current.classList.add("active");
-      let randomColor = Math.floor(Math.random() * ColorArray.length),
-        longshadow = ``;
+      if (ShadowTitleRef.current) {
+        ShadowTitleRef.current.classList.add("active");
+        let randomColor = Math.floor(Math.random() * ColorArray.length),
+          longshadow = ``;
 
-      for (let longshadows = 0; longshadows < 10; longshadows++) {
-        longshadow +=
-          (longshadow ? "," : "") +
-          `${longshadows + 1}px ${longshadows + 1}px 0 ${
-            ColorArray[randomColor]
-          }`;
+        for (let longshadows = 0; longshadows < 10; longshadows++) {
+          longshadow +=
+            (longshadow ? "," : "") +
+            `${longshadows + 1}px ${longshadows + 1}px 0 ${
+              ColorArray[randomColor]
+            }`;
+        }
+        ShadowTitleRef.current.style.textShadow = longshadow;
+        ShadowTitleRef.current.style.transition = `text-shadow 1s 2s`;
       }
-      ShadowTitleRef.current.style.textShadow = longshadow;
     }, 1000);
   }, []);
 
-  return (
-    <h2 id={`shadow${text}`} className="shadowTitle" ref={ShadowTitleRef}></h2>
-  );
+  return <h2 id={shadowId} className="shadowTitle" ref={ShadowTitleRef}></h2>;
 }

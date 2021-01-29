@@ -46,6 +46,7 @@
       }
 
       &.greetEnd {
+        mix-blend-mode: difference;
         &.active {
           animation: greetEnd 2s forwards;
           @keyframes greetEnd {
@@ -54,6 +55,9 @@
             }
             50% {
               opacity: 1;
+            }
+            80% {
+              color: #fff;
             }
             100% {
               opacity: 0;

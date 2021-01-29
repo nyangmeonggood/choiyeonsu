@@ -5,56 +5,19 @@ header {
   position: fixed;
   top: 0;
   left: 50%;
-  width: 97%;
+  width: 100%;
   max-width: 1920px;
   height: 60px;
   transform: translateX(-50%);
   z-index: 50;
   align-items: center;
   justify-content: space-between;
+  padding: 0 30px;
+  box-sizing: border-box;
 
   &:hover {
     h1 {
       svg {
-        circle {
-          animation: titleCircle 1.2s infinite;
-          animation-direction: alternate;
-          transform-origin: center;
-          @keyframes titleCircle {
-            0% {
-              transform: translate(0%, 0%) scale(0.95);
-            }
-            100% {
-              transform: translate(-5%, -7%) scale(1);
-            }
-          }
-        }
-        rect {
-          animation: titleRect 1s infinite;
-          animation-direction: alternate;
-          transform-origin: center bottom;
-          @keyframes titleRect {
-            0% {
-              transform: translate(0) rotate(0deg);
-            }
-            100% {
-              transform: translate(5%, 5%) rotate(10deg);
-            }
-          }
-        }
-        polygon {
-          animation: titlePolygon 1s infinite;
-          animation-direction: alternate;
-          transform-origin: center bottom;
-          @keyframes titlePolygon {
-            0% {
-              transform: translate(3%, 10%) rotate(-10deg);
-            }
-            100% {
-              transform: translate(0) rotate(0deg);
-            }
-          }
-        }
       }
     }
   }
@@ -65,6 +28,45 @@ header {
 
     svg {
       width: 100%;
+      circle {
+        animation: titleCircle 1.2s infinite;
+        animation-direction: alternate;
+        transform-origin: center;
+        @keyframes titleCircle {
+          0% {
+            transform: translate(0%, 0%) scale(0.95);
+          }
+          100% {
+            transform: translate(-5%, -7%) scale(1);
+          }
+        }
+      }
+      rect {
+        animation: titleRect 1s infinite;
+        animation-direction: alternate;
+        transform-origin: center bottom;
+        @keyframes titleRect {
+          0% {
+            transform: translate(0) rotate(0deg);
+          }
+          100% {
+            transform: translate(5%, 5%) rotate(10deg);
+          }
+        }
+      }
+      polygon {
+        animation: titlePolygon 1s infinite;
+        animation-direction: alternate;
+        transform-origin: center bottom;
+        @keyframes titlePolygon {
+          0% {
+            transform: translate(3%, 10%) rotate(-10deg);
+          }
+          100% {
+            transform: translate(0) rotate(0deg);
+          }
+        }
+      }
     }
   }
 

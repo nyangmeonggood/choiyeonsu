@@ -1,6 +1,6 @@
 @import "./styleguide.scss";
 
-#about {
+.work {
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -20,6 +20,8 @@
 
     .shadowTitle {
       @include posCenter;
+      text-align: center;
+      width: 100%;
 
       &.active {
         position: fixed;
@@ -35,6 +37,7 @@
 
     &.toNext {
       background-color: #111;
+      mix-blend-mode: difference;
     }
   }
 }

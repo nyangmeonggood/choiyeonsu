@@ -1,95 +1,60 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Parallex, setParallex } from "../hook/Parallex";
+import Frame from "../Components/Frame";
+import { Parallex, setTitleParallex } from "../hook/Parallex";
 import ShadowTitle from "../hook/ShadowTitle";
+import CursorCanvas from "../Components/CursorCanvas.js";
 import "../scss/about.scss";
+import Next from "../Components/Next";
 
 export default function About({ stageWidth, stageHeight }) {
-  const mainRef = useRef(),
-    totalScroll = useRef(),
-    parallexDuration = useRef(),
-    numOfPart = useRef(),
-    $parts = useRef(),
-    mainHeight = useRef();
-
-  let scrollY, currentPart;
+  const nextRef = useRef();
+  let scrollY, title;
 
   const scrollEvent = () => {
     scrollY = window.scrollY;
-    if (mainRef.current.offsetTop <= scrollY) {
-      mainRef.current.classList.add("active");
-    } else {
-      mainRef.current.classList.remove("active");
+    title = document.querySelector(".shadowTitle");
+    if (title) {
+      setTitleParallex(title, scrollY);
     }
 
-    // if (scrollY >= 100) {
-    //   document.querySelector("header").classList.add("active");
-    // } else {
-    //   document.querySelector("header").classList.remove("active");
-    // }
-
-    currentPart = setCurrentPart(scrollY, mainRef);
-    setPart(mainRef.current.children, currentPart);
-
-    setParallex(
-      document.querySelector(".part1"),
-      1,
-      scrollY,
-      parallexDuration.current,
-      Parallex.frame,
-      2
-    );
-
-    setParallex(
-      document.querySelector(".part6"),
-      6,
-      scrollY,
-      parallexDuration.current,
-      Parallex.frame,
-      2
-    );
+    if (nextRef.current && scrollY === nextRef.current.offsetTop) {
+      nextRef.current.querySelector("a").click();
+    }
   };
 
   useEffect(() => {
-    mainHeight.current = mainRef.current.clientHeight;
-    numOfPart.current = mainRef.current.children.length;
-    parallexDuration.current = mainHeight.current / numOfPart.current;
-
-    mainRef.current.style.height = `${100 * numOfPart.current}vh`;
-
-    totalScroll.current = window.innerHeight + mainHeight.current;
-    $parts.current = Object.values(mainRef.current.children);
-
+    window.scrollTo(0, 0);
     window.addEventListener("scroll", () => {
-      if (mainRef.current) scrollEvent();
+      scrollEvent();
     });
 
     return window.removeEventListener("scroll", () => {
-      if (mainRef.current) scrollEvent();
+      scrollEvent();
     });
   });
 
   return (
     <>
-      <ShadowTitle text={"About"} />
-
-      <section id="about" ref={mainRef}>
-        <div className="part part1 partSection">
-          <div className="partTitle">About ME</div>
+      <section id="about">
+        <div className="part part1">
+          <ShadowTitle text={"AboutMe"} />
         </div>
         <div className="part part2">2</div>
-        <div className="part part3">3</div>
+        <div className="part part3">
+          <ul>
+            <li>3</li>
+          </ul>
+        </div>
         <div className="part part4">4</div>
         <div className="part part5">5</div>
-        <div className="part part6 partSection">
-          <div className="partTitle">Work</div>
-        </div>
-        <div className="part part7">
-          <Link to="/theKingOfMains">theKingOfMains</Link>
-          <br />
-          <Link to="/Buttonbutton">ButtonButton</Link>
+        <div className="part part6">6</div>
+        <div className="part part7 toNext" ref={nextRef}>
+          <Next nextLink={"theKingOfMains"} />
         </div>
       </section>
+      <Frame />
+      <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
     </>
   );
 }
@@ -109,11 +74,11 @@ const setPart = (target, num) => {
 
 const setCurrentPart = (scrollY, target) => {
   let currentPart = Math.floor(
-    (scrollY * target.current.children.length) / target.current.clientHeight - 1
+    (scrollY * target.current.children.length) / target.current.clientHeight
   );
 
-  if (currentPart > target.current.children.length - 1)
-    currentPart = target.current.children.length - 1;
+  if (currentPart > target.current.children.length)
+    currentPart = target.current.children.length;
 
   return currentPart;
 };

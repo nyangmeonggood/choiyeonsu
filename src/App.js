@@ -1,14 +1,36 @@
 import { HashRouter, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Header from "./Components/Header";
+import Main from "./Main";
+import About from "./routes/About";
 import TheKingOfMains from "./routes/TheKingOfMains";
 import Buttonbutton from "./routes/Buttonbutton";
+import ChangePage from "./Components/ChangePage";
 import "./scss/cssReset.scss";
-import Main from "./Main";
-import Header from "./Components/Header";
-import { useState } from "react";
-import About from "./routes/About";
 
 function App() {
   const [menu, setMenu] = useState(false);
+  const [change, setChange] = useState(false);
+  const [stageWidth, setStageWidth] = useState(document.body.clientWidth);
+  const [stageHeight, setStageHeight] = useState(document.body.clientHeight);
+
+  const setResize = () => {
+    setStageWidth(document.body.clientWidth);
+    setStageHeight(document.body.clientHeight);
+  };
+
+  // resize
+  useEffect(() => {
+    window.addEventListener("resize", (e) => {
+      setResize(e);
+    });
+
+    return window.removeEventListener("resize", (e) => {
+      setResize(e);
+    });
+  }, [stageWidth, stageHeight]);
+  //** resize
+
   return (
     <>
       <HashRouter>
@@ -16,11 +38,45 @@ function App() {
         <Route
           path="/"
           exact={true}
-          render={() => <Main setMenu={setMenu} />}
+          render={() => (
+            <Main
+              setMenu={setMenu}
+              stageWidth={stageWidth}
+              stageHeight={stageHeight}
+            />
+          )}
         />
-        <Route path="/theKingOfMains" component={TheKingOfMains} />
-        <Route path="/about" component={About} />
-        <Route path="/buttonbutton" component={Buttonbutton} />
+        <Route
+          path="/theKingOfMains"
+          render={() => (
+            <TheKingOfMains
+              setMenu={setMenu}
+              stageWidth={stageWidth}
+              stageHeight={stageHeight}
+            />
+          )}
+        />
+        <Route
+          path="/about"
+          render={() => (
+            <About
+              setMenu={setMenu}
+              stageWidth={stageWidth}
+              stageHeight={stageHeight}
+            />
+          )}
+        />
+        <Route
+          path="/buttonbutton"
+          render={() => (
+            <Buttonbutton
+              setMenu={setMenu}
+              stageWidth={stageWidth}
+              stageHeight={stageHeight}
+            />
+          )}
+        />
+        {change && <ChangePage change={change} setChange={setChange} />}
       </HashRouter>
     </>
   );

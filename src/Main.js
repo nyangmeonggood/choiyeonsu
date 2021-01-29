@@ -7,33 +7,14 @@ import Cursor from "./Components/Cursor";
 import Home from "./routes/Home";
 import { ColorArray } from "./hook/Color";
 
-export default function Main({ setMenu }) {
+export default function Main({ stageWidth, stageHeight, setMenu }) {
   const [isLoading, setIsLoading] = useState(false);
   const [compLoading, setCompLoading] = useState(false);
-  const [stageWidth, setStageWidth] = useState(document.body.clientWidth);
-  const [stageHeight, setStageHeight] = useState(document.body.clientHeight);
-
-  const setResize = () => {
-    setStageWidth(document.body.clientWidth);
-    setStageHeight(document.body.clientHeight);
-  };
 
   useEffect(() => {
     document.getElementById("loading").classList.add("active");
     if (window.localStorage.getItem("Intro") === "false") setCompLoading(true);
   }, []);
-
-  // resize
-  useEffect(() => {
-    window.addEventListener("resize", (e) => {
-      setResize(e);
-    });
-
-    return window.removeEventListener("resize", (e) => {
-      setResize(e);
-    });
-  }, [stageWidth, stageHeight]);
-  //** resize
 
   return (
     <>

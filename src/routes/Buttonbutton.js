@@ -1,9 +1,15 @@
-import ShadowTitle from "../hook/ShadowTitle";
+import WorkTemplete from "../Components/WorkTemplete";
+import "../scss/buttonbutton.scss";
 
-export default function Buttonbutton() {
+export default function Buttonbutton({ stageWidth, stageHeight }) {
   return (
     <>
-      <ShadowTitle text={"Buttonbutton"} />
+      <WorkTemplete
+        text={"Buttonbutton"}
+        next={"About"}
+        stageWidth={stageWidth}
+        stageHeight={stageHeight}
+      />
     </>
   );
 }
