@@ -6,9 +6,9 @@ import ShadowTitle from "../hook/ShadowTitle";
 import CursorCanvas from "../Components/CursorCanvas.js";
 import "../scss/about.scss";
 import Next from "../Components/Next";
+import Logo from "../figure/Logo.js";
 
 export default function About({ stageWidth, stageHeight }) {
-  const nextRef = useRef();
   let scrollY, title;
 
   const scrollEvent = () => {
@@ -17,14 +17,9 @@ export default function About({ stageWidth, stageHeight }) {
     if (title) {
       setTitleParallex(title, scrollY);
     }
-
-    if (nextRef.current && scrollY === nextRef.current.offsetTop) {
-      nextRef.current.querySelector("a").click();
-    }
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     window.addEventListener("scroll", () => {
       scrollEvent();
     });
@@ -42,16 +37,20 @@ export default function About({ stageWidth, stageHeight }) {
         </div>
         <div className="part part2">2</div>
         <div className="part part3">
+          <figure>
+            <Logo />
+          </figure>
           <ul>
-            <li>3</li>
+            <li>3-1</li>
+            <li>3-2</li>
+            <li>3-3</li>
+            <li>3-4</li>
           </ul>
         </div>
         <div className="part part4">4</div>
         <div className="part part5">5</div>
         <div className="part part6">6</div>
-        <div className="part part7 toNext" ref={nextRef}>
           <Next nextLink={"theKingOfMains"} />
-        </div>
       </section>
       <Frame />
       <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />

@@ -105,14 +105,14 @@ function setFrameParallex(target, scrollY, reverseStart) {
     returnHorizonFrameParallex = returnReverseParallex(
       Parallex.horizonFrame,
       relativeScrollY,
-      duration * 2,
+      duration,
       reverseStart,
       false
     );
     returnVerticalFrameParallex = returnReverseParallex(
       Parallex.verticalFrame,
       relativeScrollY,
-      duration * 2,
+      duration,
       reverseStart,
       false
     );
@@ -120,7 +120,7 @@ function setFrameParallex(target, scrollY, reverseStart) {
     returnOpacityParallex = returnReverseParallex(
       Parallex.opacity,
       relativeScrollY,
-      duration * 2,
+      duration,
       reverseStart,
       false
     );
@@ -130,7 +130,7 @@ function setFrameParallex(target, scrollY, reverseStart) {
   // target.style.height = `${returnSizeParallex}vh`;
   target.style.opacity = returnOpacityParallex;
 
-  Object.values(target.getElementsByClassName("horizon")).forEach((item) => {
+  Object.values(target.getElementsByClassName("horizon")).forEach((item,index) => {
     item.style.height = `${returnHorizonFrameParallex}px`;
   });
 

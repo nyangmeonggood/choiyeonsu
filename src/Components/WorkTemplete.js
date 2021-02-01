@@ -7,7 +7,6 @@ import Next from "./Next";
 import "../scss/WorkTemplete.scss";
 
 export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
-  const nextRef = useRef();
   let scrollY, title;
 
   const scrollEvent = () => {
@@ -16,16 +15,9 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
     if (title) {
       setTitleParallex(title, scrollY);
     }
-
-    if (nextRef.current && scrollY === nextRef.current.offsetTop) {
-      window.scrollTo(0, 0);
-
-      nextRef.current.querySelector(".nextBtn").click();
-    }
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     window.addEventListener("scroll", () => {
       scrollEvent();
     });
@@ -49,9 +41,7 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
         <div className="part part4">4</div>
         <div className="part part5">5</div>
         <div className="part part6">6</div>
-        <div className="part toNext" ref={nextRef}>
           <Next nextLink={next} />
-        </div>
       </section>
       <Frame />
       <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />

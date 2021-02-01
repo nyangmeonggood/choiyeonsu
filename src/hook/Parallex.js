@@ -3,7 +3,8 @@ export const Parallex = {
   opacity: [0, 1],
   border: [0, 60],
   title: [50, 0],
-  next: [15, 40],
+  next: [25, 50],
+  addNext:[0,2]
 };
 
 export function setParallex(
@@ -51,13 +52,43 @@ export function setNextParallex(target, scrollY, reverseStart) {
   let returnTop, relativeScrollY, duration;
 
   duration = window.innerHeight / 2;
-  relativeScrollY = scrollY - reverseStart - duration;
+  relativeScrollY = scrollY - reverseStart;
 
   returnTop =
     Parallex.next[0] +
     ((Parallex.next[1] - Parallex.next[0]) * relativeScrollY) / duration;
 
   if (returnTop <= Parallex.next[0]) returnTop = Parallex.next[0];
+  if (returnTop >= Parallex.next[1]) returnTop = Parallex.next[1];
 
   target.style.top = `${returnTop}%`;
+}
+
+export function setNextFigureParallex(target, scrollY, reverseStart) {
+  let targetChildren,returnAdd, relativeScrollY, duration;
+
+  targetChildren = Object.values(target.children)
+
+  duration = window.innerHeight / 4;
+  relativeScrollY = scrollY - reverseStart - duration;
+
+  returnAdd =
+    Math.floor(Parallex.addNext[0] +
+    ((Parallex.addNext[1] - Parallex.addNext[0]) * relativeScrollY) / duration);
+
+  if (returnAdd >= Parallex.addNext[1]) returnAdd = Parallex.addNext[1];
+
+  if(returnAdd >= 0){
+    targetChildren.map((item,index) => {
+      item.classList.remove("active")
+      if(returnAdd >= index){
+        return item.classList.add("active")
+        
+      }
+    })
+  }else{
+    targetChildren.map((item) => {
+      item.classList.remove("active")
+    })
+  }
 }

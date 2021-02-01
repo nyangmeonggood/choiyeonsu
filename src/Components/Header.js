@@ -24,9 +24,25 @@ export default function Header({ menu, setMenu }) {
 
   const titleFunc = () => {
     setMenu((v) => !v);
+    if (window.localStorage.getItem("Intro") === "true") {
+      // window.location.reload();
+      return;
+    }
 
     if (document.getElementById("mainTitle")) {
       document.getElementById("mainTitle").classList.add("active");
+    }
+  };
+
+  const introOnOff = () => {
+    document.querySelector(".introOnOff").classList.toggle("active")
+    if (window.localStorage.getItem("Intro") === "false") {
+      window.localStorage.setItem("Intro", true);
+      return;
+    }
+    if (window.localStorage.getItem("Intro") === "true") {
+      window.localStorage.setItem("Intro", false);
+      return;
     }
   };
 
@@ -77,6 +93,8 @@ export default function Header({ menu, setMenu }) {
       </header>
 
       <section id="menuModal" ref={menuModalRef}>
+        
+      <p onClick={introOnOff} className="introOnOff">Intro</p>
         <div className="blink" ref={blinkRef}></div>
         <div className="content">
           <div className="menu" onClick={titleFunc}>

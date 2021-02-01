@@ -1,10 +1,84 @@
+@import "./styleguide.scss";
+
 .toNext {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  box-sizing: border-box;
+  border-top: 7px double #111;
+  background-color: #111;
+  color: #dbdbdb;
+
+  &.active {
+    .nextBtn {
+      color: #fff;
+    }
+  }
+
   .nextBtn {
     position: absolute;
     top: 25%;
     left: 50%;
-    transform: translate(-50%, 0%);
+    transform: translate(-50%, -50%);
     width: 100%;
+    font-size: 10vw;
+    @include Black;
+    color: #2c2c2c;
     text-align: center;
+  }
+
+  .nextPer {
+    margin: 0 auto;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > figure {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      margin: 0 auto;
+
+      transform: scale(0.5);
+
+      &.active {
+        transform: scale(1);
+        transform-origin: center;
+        transition: transform 0.5s cubic-bezier(0.42, 0.97, 0.52, 1.49);
+
+        svg {
+          opacity: 1;
+        }
+        &:nth-of-type(1) svg {
+          fill: $Red !important;
+        }
+
+        &:nth-of-type(2) svg {
+          fill: $Yellow !important;
+        }
+
+        &:nth-of-type(3) svg {
+          fill: $Blue !important;
+        }
+      }
+
+      svg {
+        @include posCenter;
+        width: inherit;
+        height: inherit;
+        fill: #dbdbdb;
+        opacity: 0.2;
+
+        rect {
+          transform: rotate(90deg);
+          transform-origin: center;
+        }
+
+        polygon {
+          transform: rotate(90deg);
+          transform-origin: center;
+        }
+      }
+    }
   }
 }

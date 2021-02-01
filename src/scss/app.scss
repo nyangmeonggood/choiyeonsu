@@ -1,6 +1,10 @@
+@import "./styleguide.scss";
+
 #Portfolio {
   min-height: 100vh;
   overflow: hidden;
+
+  @include Regular;
 
   &.menuOn {
   }
