@@ -15,8 +15,8 @@ function App() {
   const [stageHeight, setStageHeight] = useState(document.body.clientHeight);
 
   const setResize = () => {
-    setStageWidth(document.body.clientWidth);
-    setStageHeight(document.body.clientHeight);
+    setStageWidth(window.innerWidth);
+    setStageHeight(window.innerHeight);
   };
 
   // resize

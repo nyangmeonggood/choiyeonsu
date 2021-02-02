@@ -12,6 +12,7 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
   const scrollEvent = () => {
     scrollY = window.scrollY;
     title = document.querySelector(".shadowTitle");
+    
     if (title) {
       setTitleParallex(title, scrollY);
     }

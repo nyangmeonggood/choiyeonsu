@@ -57,11 +57,6 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
     );
   }, []);
 
-  const scrollEvent = () => {
-    scrollY = window.scrollY;
-    $Cursor.current[0].part = "1";
-  };
-
   useEffect(() => {
     $ParticleCanvas.current.width = stageWidth;
     $ParticleCanvas.current.height = stageHeight;
@@ -74,7 +69,7 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
 
   useEffect(() => {
     $ctxParticleCanvas.current = $ParticleCanvas.current.getContext("2d");
-    setTimeout(() => ParticleAnimate(), 3500);
+    ParticleAnimate();
   }, []);
 
   //mousemove
@@ -150,7 +145,7 @@ class setCursor {
     this.y = canvasMouse.y;
 
     if (this.fontOpacity <= 1) {
-      this.fontOpacity += 0.1;
+      this.fontOpacity += 0.01;
     }
     if (this.part === "1") {
       document.body.style.cursor = "pointer";

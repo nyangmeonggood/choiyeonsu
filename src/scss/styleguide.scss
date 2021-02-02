@@ -50,3 +50,9 @@ $Blue: #0bceda;
 @mixin Black {
   font-family: "S-CoreDream-9Black";
 }
+
+@mixin frameSize {
+  width: 100%;
+  padding: 0 100px;
+  box-sizing: border-box;
+}

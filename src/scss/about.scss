@@ -9,28 +9,95 @@
     position: relative;
     width: 100%;
     height: 100vh;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 100px;
     box-sizing: border-box;
 
-    &.active {
-    }
-
     .shadowTitle {
       @include posCenter;
+      text-align: center;
+      width: 100%;
 
       &.active {
         position: fixed;
+        width: 100%;
       }
     }
 
+    &.part1 {
+      height: 148vh;
+    }
+
     &.part2 {
+      overflow: hidden;
+      height: 500vh;
+    }
+
+    &.part3 {
+      height: 200vh;
     }
 
     &.part4 {
-      border-bottom: 2px solid #111;
+      height: 800vh;
+    }
+
+    .content {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      will-change: top;
+      transform: translateX(-50%);
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+
+      figure,
+      > ul {
+        height: 100%;
+      }
+      figure {
+        width: 40%;
+      }
+      > ul {
+        width: 60%;
+        height: calc(100% - 120px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        li {
+          width: 100%;
+          height: 25%;
+          transform: translateX(-100%);
+
+          &:not(:last-child) {
+            border-bottom: 2px solid #111;
+          }
+        }
+      }
+    }
+
+    &.active {
+      .content {
+        position: fixed;
+      }
     }
   }
+}
+
+.divLine {
+  position: fixed;
+  top: 0;
+  left: 40%;
+  width: 2px;
+  height: 0;
+  background-color: #111;
+  z-index: -100;
 }
