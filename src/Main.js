@@ -3,9 +3,7 @@ import "./scss/cssReset.scss";
 import "./scss/app.scss";
 import Intro from "./Components/Intro";
 import Loading from "./Components/Loading";
-import Cursor from "./Components/Cursor";
 import Home from "./routes/Home";
-import { ColorArray } from "./hook/Color";
 
 export default function Main({ stageWidth, stageHeight, setMenu }) {
   const [isLoading, setIsLoading] = useState(false);

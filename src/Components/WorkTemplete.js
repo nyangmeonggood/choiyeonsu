@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { setTitleParallex } from "../hook/Parallex";
 import ShadowTitle from "../hook/ShadowTitle";
 import CursorCanvas from "./CursorCanvas";

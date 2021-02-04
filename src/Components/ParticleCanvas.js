@@ -7,14 +7,9 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
   const $Particle = useRef(),
     $ParticleCanvas = useRef(),
     $ParticleArray = useRef(),
-    $Cursor = useRef(),
     $GridArray = useRef(),
     $ctxParticleCanvas = useRef();
   const colorArray = ColorArray;
-
-  let $mainRefCurrent, mouseoutInterval;
-
-  let scrollY = 0;
 
   let canvasMouse = {
     x: undefined,
@@ -37,24 +32,10 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
       $ctxParticleCanvas.current.canvas.height
     );
 
-    // drawGrid(
-    //   $ctxParticleCanvas.current,
-    //   stageWidth,
-    //   stageHeight,
-    //   1858,
-    //   88,
-    //   16,
-    //   30
-    // );
-
     for (var i = 0; i < $ParticleArray.current.length; i++) {
       $ParticleArray.current[i].update($ctxParticleCanvas.current, canvasMouse);
     }
   }, []);
-
-  const scrollEvent = () => {
-    scrollY = window.scrollY;
-  };
 
   useEffect(() => {
     $ParticleArray.current = [];
@@ -88,7 +69,7 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
   useEffect(() => {
     $ctxParticleCanvas.current = $ParticleCanvas.current.getContext("2d");
     ParticleAnimate();
-  }, []);
+  }, [ParticleAnimate]);
 
   //mousemove
   useEffect(() => {
@@ -101,18 +82,6 @@ export default function ParticleCanvas({ stageWidth, stageHeight }) {
     });
   });
   //**mousemove
-
-  //scroll
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      scrollEvent();
-    });
-
-    return window.removeEventListener("scroll", () => {
-      scrollEvent();
-    });
-  });
-  //**scroll
 
   return (
     <>
@@ -195,75 +164,3 @@ class SetParticleCanvas {
     this.draw(ctx);
   }
 }
-
-class setCursor {
-  constructor(text, x, y, color, part, size, startRotation) {
-    this.text = text;
-    this.startRotation = startRotation;
-    this.x = x;
-    this.y = y;
-    this.part = part;
-    this.size = size;
-    this.color = color;
-    this.numRadsPerLetter = (2 * Math.PI) / this.text.length;
-  }
-  draw(ctx) {
-    ctx.save();
-    ctx.translate(this.x, this.y);
-
-    if (this.part === "1") {
-      ctx.font = "20px S-CoreDream-9Black";
-      ctx.rotate(this.startRotation);
-      for (let i = 0; i < this.text.length; i++) {
-        ctx.save();
-        ctx.rotate(i * this.numRadsPerLetter);
-
-        ctx.fillText(this.text[i], 0, this.size);
-        ctx.restore();
-      }
-    }
-
-    if (this.part === "2") {
-      ctx.font = "20px S-CoreDream-9Black";
-      ctx.fillText(this.text, 0, this.size);
-    }
-
-    ctx.restore();
-  }
-  update(ctx, canvasMouse) {
-    this.x = canvasMouse.x;
-    this.y = canvasMouse.y;
-    if (this.part === "1") {
-      this.startRotation += 0.003;
-    }
-    if (this.part === "2") {
-    }
-    this.draw(ctx);
-  }
-}
-
-const drawGrid = (
-  ctx,
-  stageWidth,
-  stageHeight,
-  totalWidth,
-  columnsWidth,
-  columnsNum,
-  gapWidth
-) => {
-  ctx.save();
-  ctx.translate(stageWidth / 2, 0);
-
-  for (let i = 0; i < columnsNum; i++) {
-    let recStart = -totalWidth / 2 + columnsWidth * i + gapWidth * i,
-      recEnd = recStart + columnsWidth;
-
-    ctx.moveTo(recStart, 0);
-    ctx.lineTo(recEnd, 0);
-    ctx.lineTo(recEnd, stageHeight);
-    ctx.lineTo(recStart, stageHeight);
-    ctx.fillStyle = "#dbdbdb";
-    ctx.fill();
-  }
-  ctx.restore();
-};

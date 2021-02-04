@@ -1,14 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { setNextFigureParallex, setNextParallex } from "../hook/Parallex";
-import { Red, Yellow, Blue } from "../hook/Color.js";
 import Circle from "../figure/Circle";
 import Triangle from "../figure/Triangle";
 import Bar from "../figure/Bar";
 import "../scss/next.scss";
 
 export default function Next({ nextLink }) {
-  let scrollY,contentTop, reverseStart,toNext, nextBtn,nextPer, scrollTimeout;
+  let scrollY,
+    contentTop,
+    reverseStart,
+    toNext,
+    nextBtn,
+    nextPer,
+    scrollTimeout;
 
   const scrollEvent = () => {
     scrollY = window.scrollY;
@@ -20,23 +25,30 @@ export default function Next({ nextLink }) {
       contentTop = document.querySelector(".toNext").offsetTop;
       reverseStart = contentTop - window.innerHeight;
 
-      if(scrollY>=reverseStart){
-        clearTimeout(scrollTimeout)
-        scrollTimeout = setTimeout(()=>{
-        toNext.classList.remove("active")
+      if (scrollY >= reverseStart) {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
           window.scrollTo({
             top: reverseStart,
-            behavior: 'smooth'})
-        },500)
+            behavior: "smooth",
+          });
+          clearTimeout(scrollTimeout);
+        }, 500);
+      } else {
+        clearTimeout(scrollTimeout);
       }
     }
 
-    if(toNext && scrollY === document.body.clientHeight - window.innerHeight){
-      clearTimeout(scrollTimeout)
-      toNext.classList.add("active")
-      scrollTimeout = setTimeout(() => {
-        toNext.querySelector("a").click()
-      },500)
+    console.log(scrollY, document.body.clientHeight - window.innerHeight);
+
+    if (toNext && scrollY === document.body.clientHeight - window.innerHeight) {
+      clearTimeout(scrollTimeout);
+      toNext.classList.add("active");
+      // scrollTimeout = setTimeout(() => {
+      //   toNext.querySelector("a").click();
+      // }, 500);
+    } else {
+      toNext.classList.remove("active");
     }
 
     if (nextBtn) {
@@ -46,7 +58,7 @@ export default function Next({ nextLink }) {
   };
 
   useEffect(() => {
-    clearTimeout(scrollTimeout)
+    clearTimeout(scrollTimeout);
     window.scroll(0, 0);
     window.addEventListener("scroll", () => {
       scrollEvent();
@@ -59,10 +71,10 @@ export default function Next({ nextLink }) {
   return (
     <div className="toNext">
       <Link className="nextBtn" to={`/${nextLink}`}>
-        <div className="nextPer" >
-            <Circle  />
-            <Bar width={30}/>
-            <Triangle  />
+        <div className="nextPer">
+          <Circle />
+          <Bar width={30} />
+          <Triangle />
         </div>
         {nextLink}
       </Link>

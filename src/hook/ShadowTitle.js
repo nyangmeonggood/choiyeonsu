@@ -8,7 +8,6 @@ export default function ShadowTitle({ id, text }) {
   let shadowId = id ? `${id}` : `shadow${text}`;
   useEffect(() => {
     SeparateText(shadowId, text, "span");
-    let duration = ShadowTitleRef.current.children.length * 0.5 + 0.5;
 
     Object.values(ShadowTitleRef.current.children).forEach((item) => {
       let i = item.dataset.delay;
@@ -33,7 +32,7 @@ export default function ShadowTitle({ id, text }) {
         ShadowTitleRef.current.style.transition = `text-shadow 1s 2s`;
       }
     }, 1000);
-  }, []);
+  }, [shadowId,text]);
 
-  return <h2 id={shadowId} className="shadowTitle" ref={ShadowTitleRef}></h2>;
+  return <div id={shadowId} className="shadowTitle" ref={ShadowTitleRef}></div>;
 }

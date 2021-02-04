@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { ColorArray } from "../hook/Color";
 import "../scss/frame.scss";
 
-export default function Frame({}) {
+export default function Frame() {
   const frameRef = useRef(),
     currentRef = useRef();
 
@@ -54,14 +54,16 @@ const Parallex = {
   frame: [100, 90],
   opacity: [0, 1],
   horizonFrame: [0, 60],
+  bottomFrameMobile: [0, 30],
   verticalFrame: [0, 100],
+  verticalFrameMobile: [0, 20],
 };
 
 function setFrameParallex(target, scrollY, reverseStart) {
-  let returnSizeParallex,
-    returnOpacityParallex,
+  let returnOpacityParallex,
     returnHorizonFrameParallex,
     returnVerticalFrameParallex,
+    returnbottomFrameMobileParallex,
     relativeScrollY,
     duration;
 
@@ -69,24 +71,37 @@ function setFrameParallex(target, scrollY, reverseStart) {
   duration = window.innerHeight / 2;
 
   if (scrollY <= reverseStart) {
-    // returnSizeParallex = returnParallex(
-    //   Parallex.frame,
-    //   relativeScrollY,
-    //   duration,
-    //   false
-    // );
     returnHorizonFrameParallex = returnParallex(
       Parallex.horizonFrame,
       relativeScrollY,
       duration,
       true
     );
-    returnVerticalFrameParallex = returnParallex(
-      Parallex.verticalFrame,
-      relativeScrollY,
-      duration,
-      true
-    );
+
+    if (window.innerWidth < 900) {
+      returnbottomFrameMobileParallex = returnParallex(
+        Parallex.bottomFrameMobile,
+        relativeScrollY,
+        duration,
+        true
+      );
+    }
+
+    if (window.innerWidth > 900) {
+      returnVerticalFrameParallex = returnParallex(
+        Parallex.verticalFrame,
+        relativeScrollY,
+        duration,
+        true
+      );
+    } else {
+      returnVerticalFrameParallex = returnParallex(
+        Parallex.verticalFrameMobile,
+        relativeScrollY,
+        duration,
+        true
+      );
+    }
 
     returnOpacityParallex = returnParallex(
       Parallex.opacity,
@@ -95,13 +110,6 @@ function setFrameParallex(target, scrollY, reverseStart) {
       true
     );
   } else {
-    // returnSizeParallex = returnReverseParallex(
-    //   Parallex.frame,
-    //   relativeScrollY,
-    //   duration * 2,
-    //   reverseStart,
-    //   true
-    // );
     returnHorizonFrameParallex = returnReverseParallex(
       Parallex.horizonFrame,
       relativeScrollY,
@@ -109,13 +117,33 @@ function setFrameParallex(target, scrollY, reverseStart) {
       reverseStart,
       false
     );
-    returnVerticalFrameParallex = returnReverseParallex(
-      Parallex.verticalFrame,
-      relativeScrollY,
-      duration,
-      reverseStart,
-      false
-    );
+
+    if (window.innerWidth < 900) {
+      returnbottomFrameMobileParallex = returnReverseParallex(
+        Parallex.bottomFrameMobile,
+        relativeScrollY,
+        duration,
+        false
+      );
+    }
+
+    if (window.innerWidth > 900) {
+      returnVerticalFrameParallex = returnReverseParallex(
+        Parallex.verticalFrame,
+        relativeScrollY,
+        duration,
+        reverseStart,
+        false
+      );
+    } else {
+      returnVerticalFrameParallex = returnReverseParallex(
+        Parallex.verticalFrameMobile,
+        relativeScrollY,
+        duration,
+        reverseStart,
+        false
+      );
+    }
 
     returnOpacityParallex = returnReverseParallex(
       Parallex.opacity,
@@ -130,9 +158,19 @@ function setFrameParallex(target, scrollY, reverseStart) {
   // target.style.height = `${returnSizeParallex}vh`;
   target.style.opacity = returnOpacityParallex;
 
-  Object.values(target.getElementsByClassName("horizon")).forEach((item,index) => {
-    item.style.height = `${returnHorizonFrameParallex}px`;
-  });
+  target.querySelector(
+    ".frameTop"
+  ).style.height = `${returnHorizonFrameParallex}px`;
+
+  if (window.innerWidth > 900) {
+    target.querySelector(
+      ".frameBottom"
+    ).style.height = `${returnHorizonFrameParallex}px`;
+  } else {
+    target.querySelector(
+      ".frameBottom"
+    ).style.height = `${returnbottomFrameMobileParallex}px`;
+  }
 
   Object.values(target.getElementsByClassName("vertical")).forEach((item) => {
     item.style.width = `${returnVerticalFrameParallex}px`;

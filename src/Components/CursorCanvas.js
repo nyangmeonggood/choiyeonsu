@@ -10,9 +10,13 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
 
   const colorArray = ColorArray;
 
-  let $mainRefCurrent;
-
-  let scrollY = 0;
+  const abilityPercent = [
+    { className: ".html", color: "#ea642d", percent: 90 },
+    { className: ".css", color: "#2ea5d6", percent: 95 },
+    { className: ".js", color: "#eab925", percent: 95 },
+    { className: ".react", color: "#5ed3f3", percent: 85 },
+    { className: ".reactnative", color: "#5ed3f3", percent: 70 },
+  ];
 
   let canvasMouse = {
     x: stageWidth - 120,
@@ -70,7 +74,7 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
   useEffect(() => {
     $ctxParticleCanvas.current = $ParticleCanvas.current.getContext("2d");
     ParticleAnimate();
-  }, []);
+  }, [ParticleAnimate]);
 
   //mousemove
   useEffect(() => {
@@ -83,6 +87,32 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
     });
   });
   //**mousemove
+
+  // mouseenter
+  useEffect(() => {
+    if (document.querySelector("#about")) {
+      for (let i = 0; i < abilityPercent.length; i++) {
+        document
+          .querySelector(`.part3 ul li ${abilityPercent[i].className}`)
+          .addEventListener("pointerenter", () => {
+            $Cursor.current[0].part = `2`;
+            $Cursor.current[0].percent = abilityPercent[i].percent;
+            $Cursor.current[0].abilityColor = abilityPercent[i].color;
+          });
+
+        document
+          .querySelector(`.part3 ul li ${abilityPercent[i].className}`)
+          .addEventListener("pointerout", () => {
+            $Cursor.current[0].part = "1";
+            $Cursor.current[0].current = 0;
+            $Cursor.current[0].percent = 0;
+            $Cursor.current[0].abilityColor = "transparent";
+            $Cursor.current[0].abilityArc = 0;
+          });
+      }
+    }
+  });
+  // **mouseover
 
   return (
     <>
@@ -101,6 +131,10 @@ class setCursor {
     this.y = y;
     this.part = part;
     this.size = size;
+    this.current = 0;
+    this.percent = 0;
+    this.abilityColor = "transparent";
+    this.abilityArc = 0;
     this.click = 0;
     this.fontOpacity = fontOpacity;
     this.numRadsPerLetter = (2 * Math.PI) / this.text.length;
@@ -122,19 +156,26 @@ class setCursor {
     }
 
     if (this.part === "2") {
-      ctx.font = "20px S-CoreDream-9Black";
       ctx.save();
       ctx.beginPath();
-      ctx.arc(0, 0, 50, 0, Math.PI * 2);
-      ctx.fillStyle = `#FC3`;
-      ctx.fill();
+      ctx.arc(0, 0, 50, 0, Math.PI * 2 * this.abilityArc);
+      ctx.strokeStyle = this.abilityColor;
+      ctx.lineWidth = 50;
+      ctx.stroke();
       ctx.closePath();
+      ctx.restore();
+      ctx.fillStyle = "#111";
+
+      ctx.save();
+      ctx.font = "20px S-CoreDream-9Black";
+      ctx.translate(60, 70);
+      ctx.fillText(`${this.current}`, 0, this.click);
       ctx.restore();
 
       ctx.save();
-      ctx.translate(-22, 8);
-      ctx.fillStyle = `#fff`;
-      ctx.fillText("Click", 0, this.click);
+      ctx.font = "15px S-CoreDream-6Bold";
+      ctx.translate(86, 70);
+      ctx.fillText("%", 0, this.click);
       ctx.restore();
     }
 
@@ -152,35 +193,40 @@ class setCursor {
       this.startRotation -= 0.003;
     }
     if (this.part === "2") {
-      console.dir(canvas.style);
       document.body.style.cursor = "none";
+      if (this.current < this.percent) {
+        this.current += 1;
+      }
+      if (this.abilityArc <= `${this.current / 100}`) {
+        this.abilityArc += 0.015;
+      }
     }
     this.draw(ctx);
   }
 }
 
-const drawGrid = (
-  ctx,
-  stageWidth,
-  stageHeight,
-  totalWidth,
-  columnsWidth,
-  columnsNum,
-  gapWidth
-) => {
-  ctx.save();
-  ctx.translate(stageWidth / 2, 0);
+// const drawGrid = (
+//   ctx,
+//   stageWidth,
+//   stageHeight,
+//   totalWidth,
+//   columnsWidth,
+//   columnsNum,
+//   gapWidth
+// ) => {
+//   ctx.save();
+//   ctx.translate(stageWidth / 2, 0);
 
-  for (let i = 0; i < columnsNum; i++) {
-    let recStart = -totalWidth / 2 + columnsWidth * i + gapWidth * i,
-      recEnd = recStart + columnsWidth;
+//   for (let i = 0; i < columnsNum; i++) {
+//     let recStart = -totalWidth / 2 + columnsWidth * i + gapWidth * i,
+//       recEnd = recStart + columnsWidth;
 
-    ctx.moveTo(recStart, 0);
-    ctx.lineTo(recEnd, 0);
-    ctx.lineTo(recEnd, stageHeight);
-    ctx.lineTo(recStart, stageHeight);
-    ctx.fillStyle = "#dbdbdb";
-    ctx.fill();
-  }
-  ctx.restore();
-};
+//     ctx.moveTo(recStart, 0);
+//     ctx.lineTo(recEnd, 0);
+//     ctx.lineTo(recEnd, stageHeight);
+//     ctx.lineTo(recStart, stageHeight);
+//     ctx.fillStyle = "#dbdbdb";
+//     ctx.fill();
+//   }
+//   ctx.restore();
+// };

@@ -1,12 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { ColorArray } from "../hook/Color";
-import { SeparateText } from "../hook/SeperateText";
 import ParticleCanvas from "../Components/ParticleCanvas.js";
 import "../scss/home.scss";
 import ShadowTitle from "../hook/ShadowTitle";
 
 export default function Home({ stageWidth, stageHeight, setMenu }) {
-  const homeBoxRef = useRef();
 
   const toggleMenu = () => {
     setMenu(true);
@@ -15,9 +13,6 @@ export default function Home({ stageWidth, stageHeight, setMenu }) {
       ColorArray[randomBlink];
   };
   useEffect(() => {
-    // document.querySelector(
-    //   ".subTitle .year"
-    // ).innerText = new Date().getFullYear();
   }, []);
 
   return (
