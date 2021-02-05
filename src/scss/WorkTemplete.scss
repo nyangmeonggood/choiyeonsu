@@ -15,9 +15,6 @@
     font-size: 100px;
     box-sizing: border-box;
 
-    &.active {
-    }
-
     .shadowTitle {
       @include posCenter;
       text-align: center;
@@ -26,6 +23,17 @@
       &.active {
         position: fixed;
       }
+    }
+
+    &.active {
+    }
+
+    &.part1 {
+      height: 150vh;
+    }
+
+    &.part2 {
+      background-color: #dbdbdb;
     }
 
     &.part4 {

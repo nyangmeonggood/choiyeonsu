@@ -67,7 +67,7 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
 
     $Cursor.current = [];
     $Cursor.current.push(
-      new setCursor("SCROLLDOWN", 0, 0, 0, "1", -75, Math.PI * 2)
+      new setCursor("SCROLL·DOWN·", 0, 0, 0, "1", -75, Math.PI * 2)
     );
   }, [stageWidth, stageHeight, colorArray]);
 

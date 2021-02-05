@@ -43,12 +43,12 @@ export default function Next({ nextLink }) {
 
     if (toNext && scrollY === document.body.clientHeight - window.innerHeight) {
       clearTimeout(scrollTimeout);
-      toNext.classList.add("active");
+      toNext.classList.add("pop");
       // scrollTimeout = setTimeout(() => {
       //   toNext.querySelector("a").click();
       // }, 500);
     } else {
-      toNext.classList.remove("active");
+      toNext.classList.remove("pop");
     }
 
     if (nextBtn) {
