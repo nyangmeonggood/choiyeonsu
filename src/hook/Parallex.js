@@ -177,7 +177,7 @@ export function setdivLineRefParallex(
   } else if (scrollY >= moveStartOffset3) {
     returnLeft = returndivLine(
       relativeLineScrollY3,
-      lineDuration * 0.5,
+      lineDuration,
       3,
       lineParallex
     );
@@ -358,7 +358,7 @@ export function setTimelineParallex(target, scrollY) {
     returnTranslate = Parallex.timeLine[0];
 
   slideLi.forEach((item) => {
-    if (duration * 0.8 >= item.getBoundingClientRect().top) {
+    if (duration * 0.95 >= item.getBoundingClientRect().top) {
       return item.classList.add("active");
     } else {
       return item.classList.remove("active");

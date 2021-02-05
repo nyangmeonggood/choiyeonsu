@@ -67,7 +67,7 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
 
     $Cursor.current = [];
     $Cursor.current.push(
-      new setCursor("SCROLL·DOWN·", 0, 0, 0, "1", -75, Math.PI * 2)
+      new setCursor("SCROLL·DOWN·", 0, 0, 0, "1", -55, Math.PI * 2)
     );
   }, [stageWidth, stageHeight, colorArray]);
 
@@ -111,6 +111,27 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
           });
       }
     }
+    if (document.querySelector(".toNext")) {
+      document
+        .querySelector(".toNext a")
+        .addEventListener("pointerenter", () => {
+          $Cursor.current[0].text = "CLICK·TO·NEXT·";
+          $Cursor.current[0].size = -75;
+          $Cursor.current[0].angle = $Cursor.current[0].text.length;
+          $Cursor.current[0].numRadsPerLetter =
+            (2 * Math.PI) / $Cursor.current[0].angle;
+          $Cursor.current[0].color = "#FFF";
+        });
+
+      document.querySelector(".toNext a").addEventListener("pointerout", () => {
+        $Cursor.current[0].text = "SCROLL·DOWN·";
+        $Cursor.current[0].size = -55;
+        $Cursor.current[0].angle = $Cursor.current[0].text.length;
+        $Cursor.current[0].numRadsPerLetter =
+          (2 * Math.PI) / $Cursor.current[0].angle;
+        $Cursor.current[0].color = `rgba(17,17,17,1)`;
+      });
+    }
   });
   // **mouseover
 
@@ -126,18 +147,20 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
 class setCursor {
   constructor(text, x, y, fontOpacity, part, size, startRotation) {
     this.text = text;
+    this.angle = text.length;
     this.startRotation = startRotation;
     this.x = x;
     this.y = y;
     this.part = part;
     this.size = size;
+    this.color = `rgba(17,17,17,${this.fontOpacity})`;
     this.current = 0;
     this.percent = 0;
     this.abilityColor = "transparent";
     this.abilityArc = 0;
     this.click = 0;
     this.fontOpacity = fontOpacity;
-    this.numRadsPerLetter = (2 * Math.PI) / this.text.length;
+    this.numRadsPerLetter = (2 * Math.PI) / this.angle;
   }
   draw(ctx) {
     ctx.save();
@@ -146,10 +169,10 @@ class setCursor {
     if (this.part === "1") {
       ctx.font = "20px S-CoreDream-9Black";
       ctx.rotate(this.startRotation);
-      for (let i = 0; i < this.text.length; i++) {
+      for (let i = 0; i < this.angle; i++) {
         ctx.save();
         ctx.rotate(i * this.numRadsPerLetter);
-        ctx.fillStyle = `rgba(17,17,17,${this.fontOpacity})`;
+        ctx.fillStyle = this.color;
         ctx.fillText(this.text[i], 0, this.size);
         ctx.restore();
       }

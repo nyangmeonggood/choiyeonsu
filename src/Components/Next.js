@@ -39,15 +39,16 @@ export default function Next({ nextLink }) {
       }
     }
 
-    console.log(scrollY, document.body.clientHeight - window.innerHeight);
-
     if (toNext && scrollY === document.body.clientHeight - window.innerHeight) {
       clearTimeout(scrollTimeout);
       toNext.classList.add("pop");
       // scrollTimeout = setTimeout(() => {
       //   toNext.querySelector("a").click();
       // }, 500);
-    } else {
+    } else if (
+      toNext &&
+      scrollY !== document.body.clientHeight - window.innerHeight
+    ) {
       toNext.classList.remove("pop");
     }
 

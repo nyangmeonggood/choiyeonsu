@@ -25,14 +25,14 @@ export default function ShadowTitle({ id, text }) {
           longshadow +=
             (longshadow ? "," : "") +
             `${longshadows + 1}px ${longshadows + 1}px 0 ${
-              ColorArray[randomColor]
+              text === "theKingOfMains" ? "#00006a" : ColorArray[randomColor]
             }`;
         }
         ShadowTitleRef.current.style.textShadow = longshadow;
         ShadowTitleRef.current.style.transition = `text-shadow 1s 2s`;
       }
     }, 1000);
-  }, [shadowId,text]);
+  }, [shadowId, text]);
 
   return <div id={shadowId} className="shadowTitle" ref={ShadowTitleRef}></div>;
 }
