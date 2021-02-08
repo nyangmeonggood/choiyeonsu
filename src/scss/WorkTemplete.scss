@@ -4,11 +4,11 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
+  mix-blend-mode: multiply;
 
   .part {
     position: relative;
     width: 100%;
-    height: 100vh;
     font-size: 5vw;
     box-sizing: border-box;
 
@@ -29,17 +29,20 @@
       height: 150vh;
     }
 
-    &.part2 {
-      font-size: 1vw;
-      height: initial;
-      background-color: $Red;
-      mix-blend-mode: multiply;
+    &.part2,
+    &.part3 {
       padding: 120px 100px;
       box-sizing: border-box;
+    }
+
+    &.part2 {
+      font-size: 1vw;
+      background-color: $Red;
       color: #fff;
 
       .desc {
         width: 80%;
+        max-width: 1536px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
@@ -109,8 +112,79 @@
       }
     }
 
-    &.part4 {
-      border-bottom: 2px solid #111;
+    &.part3 {
+      background-color: #f9f9f9;
+      font-size: 1vw;
+      > ul {
+        width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
+        > li {
+          margin: 0 auto;
+          margin-bottom: 10%;
+
+          &.multi {
+            width: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &.end {
+              align-items: flex-start;
+              justify-content: flex-end;
+
+              > div {
+                width: 33.33%;
+              }
+
+              > .bigImg {
+                width: 66.66%;
+              }
+
+              .textBox {
+                padding-left: 5%;
+                box-sizing: border-box;
+              }
+            }
+
+            &.triple {
+              > div {
+                width: 30%;
+              }
+            }
+
+            img {
+              width: 100%;
+
+              &.m,
+              &.s {
+                box-sizing: border-box;
+                background-color: rgba(238, 238, 238, 0.8);
+              }
+
+              &.m {
+                padding: 40px 80px;
+              }
+
+              &.s {
+                padding: 100px 80px;
+              }
+            }
+          }
+
+          img,
+          p.desc {
+            width: 90%;
+            margin: 0 auto;
+          }
+          img {
+            display: block;
+          }
+          p.desc {
+            text-align: right;
+          }
+        }
+      }
     }
   }
 }

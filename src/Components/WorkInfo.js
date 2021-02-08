@@ -1,3 +1,6 @@
+import komMain from "../img/kom/kom_main.jpg";
+import bbMain from "../img/bb/bb_main.jpg";
+
 export const WorkInfo = {
   theKingOfMains: {
     mainColor: "#dvdvdv",
@@ -21,6 +24,7 @@ export const WorkInfo = {
         <br />
         그리고 경쟁이라는 컨셉에서 출발해 격투게임 '킹오브파이터즈97' 게임의 레이아웃을 오마쥬했고 27개의 메인을 제작했습니다.
         `,
+    main: komMain,
   },
   buttonbutton: {
     mainColor: "#dvdvdv",
@@ -41,6 +45,7 @@ export const WorkInfo = {
         <br />        
         과연 내가 몇 가지 버튼을 만들 수 있을까? 얼마나 다양하게 만들어 볼 수 있을까? 그러한 생각들이 모여 100가지 모습의 버튼들을 구현하게 됐습니다.
         `,
+    main: bbMain,
   },
   default: {
     mainColor: "",
@@ -51,5 +56,6 @@ export const WorkInfo = {
     descTitle: "",
     link: "/",
     desc: ``,
+    main: "",
   },
 };

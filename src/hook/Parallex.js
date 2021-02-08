@@ -389,7 +389,7 @@ export function setNextFigureParallex(target, scrollY, reverseStart) {
 
   targetChildren = Object.values(target.children);
 
-  duration = window.innerHeight / 4;
+  duration = window.innerHeight / 6;
   relativeScrollY = scrollY - reverseStart - duration;
 
   returnAdd = Math.floor(

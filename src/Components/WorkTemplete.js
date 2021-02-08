@@ -6,6 +6,8 @@ import Frame from "./Frame";
 import Next from "./Next";
 import "../scss/WorkTemplete.scss";
 import { WorkInfo } from "./WorkInfo.js";
+import Work_Buttonbutton from "./Work/Work_Buttonbutton";
+import Work_TheKingOfMains from "./Work/Work_TheKingOfMains";
 
 export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
   const descRef = useRef();
@@ -86,14 +88,17 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
         </div>
         <div className="part part3">
           <ul>
-            <li>3</li>
+            <li>
+              <img src={page.main} />
+            </li>
+
+            {text === "theKingOfMains" && <Work_TheKingOfMains />}
+            {text === "Buttonbutton" && <Work_Buttonbutton />}
           </ul>
         </div>
-        <div className="part part4">4</div>
-        <div className="part part5">5</div>
-        <div className="part part6">6</div>
-        <Next nextLink={next} />
       </section>
+      <Next nextLink={next} />
+
       <Frame />
       <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
     </>
