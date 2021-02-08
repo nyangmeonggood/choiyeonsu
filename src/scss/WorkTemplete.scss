@@ -119,6 +119,7 @@
         width: 100%;
         max-width: 1920px;
         margin: 0 auto;
+        color: #111;
         > li {
           margin: 0 auto;
           margin-bottom: 10%;
@@ -138,12 +139,18 @@
               }
 
               > .bigImg {
-                width: 66.66%;
+                width: 60%;
               }
 
               .textBox {
                 padding-left: 5%;
                 box-sizing: border-box;
+
+                p {
+                  b {
+                    @include Bold;
+                  }
+                }
               }
             }
 
@@ -182,6 +189,14 @@
           }
           p.desc {
             text-align: right;
+          }
+
+          .imgBox {
+            position: relative;
+
+            .gif {
+              @include posCenter;
+            }
           }
         }
       }

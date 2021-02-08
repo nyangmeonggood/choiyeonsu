@@ -88,10 +88,6 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
         </div>
         <div className="part part3">
           <ul>
-            <li>
-              <img src={page.main} />
-            </li>
-
             {text === "theKingOfMains" && <Work_TheKingOfMains />}
             {text === "Buttonbutton" && <Work_Buttonbutton />}
           </ul>
