@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { setNextFigureParallex, setNextParallex } from "../hook/Parallex";
 import Circle from "../figure/Circle";
@@ -7,6 +7,8 @@ import Bar from "../figure/Bar";
 import "../scss/next.scss";
 
 export default function Next({ nextLink }) {
+  const nextRef = useRef("")
+
   let scrollY,
     contentTop,
     reverseStart,
@@ -60,7 +62,9 @@ export default function Next({ nextLink }) {
 
   useEffect(() => {
     clearTimeout(scrollTimeout);
-    window.scroll(0, 0);
+
+      window.scroll(0, 0);      
+
     window.addEventListener("scroll", () => {
       scrollEvent();
     });
@@ -70,7 +74,7 @@ export default function Next({ nextLink }) {
     });
   });
   return (
-    <div className="toNext">
+    <div className="toNext" ref={nextRef}>
       <Link className="nextBtn" to={`/${nextLink}`}>
         <div className="nextPer">
           <Circle />

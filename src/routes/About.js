@@ -136,7 +136,7 @@ export default function About({ stageWidth, stageHeight }) {
         new SetbGCanvas(x, y, dx, dy, stageWidth, stageHeight, angle, color)
       );
     }
-  }, []);
+  }, [stageWidth,stageHeight]);
 
   useEffect(() => {
     $ctxbGCanvas.current = $bGCanvas.current.getContext("2d");
@@ -167,22 +167,20 @@ export default function About({ stageWidth, stageHeight }) {
                 <Triangle color={ColorArray[0]} />
               </div>
             </div>
-          </div>
-          <div className="right">
-            <h2>소개글 제목</h2>
-            <p>
-              안녕하세요.
-              <b>최연수입니다.</b>
-              소개글 들어갈 위치.. 소개글 들어갈 위치 내용. 소개글 들어갈 위치..
-              소개글 들어갈 위치 내용.소개글 들어갈 위치.. 소개글 들어갈 위치
-              내용. 소개글 들어갈 위치.. 소개글 들어갈 위치 내용. 소개글 들어갈
-              위치.. 소개글 들어갈 위치 내용.소개글 들어갈 위치.. 소개글 들어갈
-              위치 내용. 소개글 들어갈 위치.. 소개글 들어갈 위치 내용. 소개글
-              들어갈 위치.. 소개글 들어갈 위치 내용.소개글 들어갈 위치.. 소개글
-              들어갈 위치 내용. 소개글 들어갈 위치.. 소개글 들어갈 위치 내용.
-              소개글 들어갈 위치.. 소개글 들어갈 위치 내용.소개글 들어갈 위치..
-              소개글 들어갈 위치 내용.
-            </p>
+            <div className="right">
+              <div className="balloon">
+                <p>
+                  <b>안녕하세요. 최연수입니다</b>
+
+                  대충 내용이 입력 될 위치입니다. 내용이 길면 좀 곤란할테니까 간단하게 조금만 적는것이 좋겠습니다.
+                </p>
+                <figure>
+                  <Circle /> 
+                  <Circle /> 
+                  <Circle /> 
+                </figure>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -206,8 +204,9 @@ export default function About({ stageWidth, stageHeight }) {
               </li>
               <li>
                 <div className="blind"></div>
-                <span className="react">React.js</span>,
-                <span className="reactnative"> React.Native</span>
+                <span className="react">React.js</span>
+                ,{" "}
+                <span className="reactnative" style={{marginLeft: "1vw"}}>React.Native</span>
               </li>
             </ul>
             <p className="certificate">
@@ -307,7 +306,11 @@ export default function About({ stageWidth, stageHeight }) {
         <Next nextLink={"theKingOfMains"} />
       </section>
       <Frame />
-      <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
+      {stageWidth > 900 ? (
+        <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
+      ) : (
+        <></>
+      )}
       <div className="divLine divLineLeft" ref={divLineLeftRef}></div>
       <div className="divLine divLineRight" ref={divLineRightRef}></div>
     </>

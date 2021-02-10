@@ -6,7 +6,7 @@ export default function Buttonbutton({ stageWidth, stageHeight }) {
     <>
       <WorkTemplete
         text={"Buttonbutton"}
-        next={"About"}
+        next={"Contact"}
         stageWidth={stageWidth}
         stageHeight={stageHeight}
       />

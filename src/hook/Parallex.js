@@ -13,6 +13,8 @@ export const Parallex = {
   InfoBoxPos: [50, 32],
   InfoBoxWidthMobile: [0, 70],
   InfoBoxOpacity: [0, 1],
+  balloon:[-105,0],
+  balloonWidth:[33.33,68],
   abilitys: [-100, 100],
   timeLine: [0, -100],
 };
@@ -203,7 +205,8 @@ function returndivLine(relativeLineScroll, lineDuration, num, lineParallex) {
 
 export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
   let picBox = target.querySelector(".content .pic");
-  let picDesc = target.querySelector(".right");
+  let picRight = target.querySelector(".content .right");
+  let picBalloon = target.querySelector(".right .balloon");
 
   let lineDuration = window.innerHeight / 2;
 
@@ -213,7 +216,7 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
   let relativeScrollY1 = scrollY - moveStartOffset1;
   let relativeScrollY2 = scrollY - moveStartOffset2;
 
-  let returnWidth, returnPos, returnOpacity, returnIntroOpacity;
+  let returnWidth, returnPos, returnOpacity, returnBalloon,returnBalloonWidth;
 
   if (scrollY < moveStartOffset1) {
     //part1 start
@@ -282,17 +285,20 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
     );
   }
 
-  if (scrollY >= moveStartOffset1 && scrollY < moveStartOffset2) {
-    returnIntroOpacity = returnParallex(
-      Parallex.InfoBoxOpacity,
-      relativeScrollY1,
+  if(scrollY < moveStartOffset1 + lineDuration){
+    returnBalloon = Parallex.balloon[0]
+    returnBalloonWidth = Parallex.balloonWidth[0]
+  } else if (scrollY >= moveStartOffset1 + lineDuration && scrollY < moveStartOffset2) {
+    returnBalloon = returnParallex(
+      Parallex.balloon,
+      relativeScrollY1 - lineDuration,
       lineDuration,
       true
     );
   } else if (scrollY >= moveStartOffset2) {
-    returnIntroOpacity = returnReverseParallex(
-      Parallex.InfoBoxOpacity,
-      moveStartOffset2,
+    returnBalloonWidth = returnParallex(
+      Parallex.balloonWidth,
+      relativeScrollY2,
       lineDuration,
       true
     );
@@ -301,7 +307,9 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
   picBox.style.width = `${returnWidth}%`;
   picBox.style.left = `${returnPos}%`;
   picBox.style.opacity = returnOpacity;
-  picDesc.style.opacity = returnIntroOpacity;
+  picBalloon.style.transform = `translateX(${returnBalloon}%)`;
+  picRight.style.width = `${returnBalloonWidth}%`;
+  picBalloon.style.opacity = returnOpacity;
   picBox.style.filter = `saturate(${returnOpacity})`;
 
   if (returnOpacity === 1) {

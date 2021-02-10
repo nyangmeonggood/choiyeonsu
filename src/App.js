@@ -5,14 +5,13 @@ import Main from "./Main";
 import About from "./routes/About";
 import TheKingOfMains from "./routes/TheKingOfMains";
 import Buttonbutton from "./routes/Buttonbutton";
-import ChangePage from "./Components/ChangePage";
 import "./scss/cssReset.scss";
+import Contact from "./routes/Contact";
 
 function App() {
   const [menu, setMenu] = useState(false);
-  const [change, setChange] = useState(false);
-  const [stageWidth, setStageWidth] = useState(document.body.clientWidth);
-  const [stageHeight, setStageHeight] = useState(document.body.clientHeight);
+  const [stageWidth, setStageWidth] = useState(window.innerWidth);
+  const [stageHeight, setStageHeight] = useState(window.innerHeight);
 
   const setResize = () => {
     setStageWidth(window.innerWidth);
@@ -76,7 +75,15 @@ function App() {
             />
           )}
         />
-        {change && <ChangePage change={change} setChange={setChange} />}
+        <Route
+          path="/contact"
+          render={() => (
+            <Contact
+              stageWidth={stageWidth}
+              stageHeight={stageHeight}
+            />
+          )}
+        />
       </HashRouter>
     </>
   );

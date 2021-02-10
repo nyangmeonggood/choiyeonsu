@@ -6,11 +6,12 @@ import Frame from "./Frame";
 import Next from "./Next";
 import "../scss/WorkTemplete.scss";
 import { WorkInfo } from "./WorkInfo.js";
-import Work_Buttonbutton from "./Work/Work_Buttonbutton";
-import Work_TheKingOfMains from "./Work/Work_TheKingOfMains";
+import WORK_BUTTONBUTTON from "./Work/WORK_BUTTONBUTTON";
+import WORK_THEKINGOFMAINS from "./Work/WORK_THEKINGOFMAINS";
 
 export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
   const descRef = useRef();
+  const imgRef = useRef();
   let scrollY, title;
   let page;
 
@@ -27,12 +28,30 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
     if (title) {
       setTitleParallex(title, scrollY);
     }
+
+    if(imgRef.current){
+      
+
+    imgRef.current = document.querySelector(".part3");
+    Object.values(imgRef.current.querySelectorAll("h4")).forEach((item) => {
+      if(item.getBoundingClientRect().top <= stageHeight*0.8){
+        item.classList.add("active")
+      }
+    });
+    }
   };
 
   useEffect(() => {
     descRef.current.querySelector(".descTitle").innerHTML = page.descTitle;
     descRef.current.querySelector(".descLeft a").href = page.link;
     descRef.current.querySelector(".descRight p").innerHTML = page.desc;
+
+    imgRef.current = document.querySelector(".part3");
+    Object.values(imgRef.current.querySelectorAll("h4")).forEach((item) => {
+      let highlight = ["red", "yellow", "blue"];
+      let randomHighlight = Math.floor(Math.random() * 3);
+      item.classList.add(highlight[randomHighlight]);
+    });
 
     window.addEventListener("scroll", () => {
       scrollEvent();
@@ -51,8 +70,8 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
         <div className="part part2" ref={descRef}>
           <div className="desc">
             <div className="descLeft">
-              <h3 className="descTitle"></h3>
-              <a href="" target="_blank">
+              <h3 className="descTitle">{""}</h3>
+              <a href="/" target="_blank">
                 <span>Link To Site</span>
                 <svg
                   viewBox="0 0 13 12"
@@ -86,17 +105,21 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
             </div>
           </div>
         </div>
-        <div className="part part3">
+        <div className="part part3"  ref={imgRef}>
           <ul>
-            {text === "theKingOfMains" && <Work_TheKingOfMains />}
-            {text === "Buttonbutton" && <Work_Buttonbutton />}
+            {text === "theKingOfMains" && <WORK_THEKINGOFMAINS />}
+            {text === "Buttonbutton" && <WORK_BUTTONBUTTON/>}
           </ul>
         </div>
       </section>
       <Next nextLink={next} />
 
       <Frame />
-      <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
+      {stageWidth > 900 ? (
+        <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

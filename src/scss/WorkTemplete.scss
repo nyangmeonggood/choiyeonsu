@@ -114,7 +114,8 @@
 
     &.part3 {
       background-color: #f9f9f9;
-      font-size: 1vw;
+      font-size: 0.85vw;
+
       > ul {
         width: 100%;
         max-width: 1920px;
@@ -122,13 +123,102 @@
         color: #111;
         > li {
           margin: 0 auto;
-          margin-bottom: 10%;
+          margin-bottom: 120px;
+
+          &.sgap {
+            margin-bottom: 60px;
+          }
+
+          h4 {
+            display: inline-block;
+            position: relative;
+            @include Bold;
+            font-size: 1.8vw;
+            text-transform: uppercase;
+            margin-left: 10px;
+            margin-bottom: 60px;
+            z-index: 1;
+
+            &.red {
+              &::before {
+                background-color: $Red;
+              }
+            }
+
+            &.yellow {
+              &::before {
+                background-color: $Yellow;
+              }
+            }
+
+            &.blue {
+              &::before {
+                background-color: $Blue;
+              }
+            }
+
+            &::before {
+              content: "";
+              position: absolute;
+              width: calc(100% + 20px);
+              height: 50%;
+              top: 50%;
+              left: 50%;
+              transform: translateX(-50%) scaleX(0);
+              z-index: -1;
+              opacity: 0.7;
+            }
+
+            &.active {
+              &::before {
+                transform-origin: left center;
+                transition: transform 0.5s;
+                transform: translateX(-50%) scaleX(1);
+              }
+            }
+          }
 
           &.multi {
             width: 90%;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
+
+            p {
+              @include Light;
+              line-height: 1.8em;
+              b {
+                @include Bold;
+              }
+            }
+
+            .textBox {
+              box-sizing: border-box;
+
+              &.left {
+                padding-left: 5%;
+              }
+              &.right {
+                padding-right: 5%;
+              }
+            }
+
+            &.center {
+              justify-content: center;
+
+              > div {
+                width: 33.33%;
+              }
+            }
+
+            &.start {
+              align-items: flex-start;
+              justify-content: flex-start;
+
+              > div {
+                width: 33.33%;
+              }
+            }
 
             &.end {
               align-items: flex-start;
@@ -136,21 +226,6 @@
 
               > div {
                 width: 33.33%;
-              }
-
-              > .bigImg {
-                width: 60%;
-              }
-
-              .textBox {
-                padding-left: 5%;
-                box-sizing: border-box;
-
-                p {
-                  b {
-                    @include Bold;
-                  }
-                }
               }
             }
 
@@ -179,12 +254,12 @@
             }
           }
 
-          img,
           p.desc {
             width: 90%;
             margin: 0 auto;
           }
           img {
+            width: 100%;
             display: block;
           }
           p.desc {
@@ -192,7 +267,28 @@
           }
 
           .imgBox {
+            width: 90%;
+            margin: 0 auto;
             position: relative;
+
+            &.center {
+              display: flex;
+              justify-content: center;
+            }
+
+            &.left {
+              display: flex;
+              justify-content: flex-start;
+            }
+            &.right {
+              display: flex;
+              justify-content: flex-end;
+            }
+
+            .gifBox {
+              width: 66.66%;
+              position: relative;
+            }
 
             .gif {
               @include posCenter;

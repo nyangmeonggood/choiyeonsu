@@ -62,7 +62,7 @@ export default function Header({ menu, setMenu }) {
     SeparateText("navAbout", "About", "span", true);
     SeparateText("navTheKingOfMains", "TheKingOfMains", "span", true);
     SeparateText("navButtonButton", "ButtonButton", "span", true);
-    SeparateText("navMain", "Title", "span", true);
+    SeparateText("navContact", "Contact", "span", true);
 
     navLi.forEach((item) => {
       item.addEventListener("mouseenter", () => {
@@ -129,9 +129,9 @@ export default function Header({ menu, setMenu }) {
                 ></Link>
               </b>
             </li>
-            <li data-desc="Go Home">
+            <li data-desc="For contact">
               <b>
-                <Link to="/" onClick={titleFunc} id="navMain"></Link>
+                <Link to="/Contact" onClick={toggleMenu} id="navContact"></Link>
               </b>
             </li>
           </ul>
