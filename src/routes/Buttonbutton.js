@@ -1,7 +1,7 @@
 import WorkTemplete from "../Components/WorkTemplete";
 import "../scss/buttonbutton.scss";
 
-export default function Buttonbutton({ stageWidth, stageHeight }) {
+export default function Buttonbutton({ stageWidth, stageHeight, change, setChange }) {
   return (
     <>
       <WorkTemplete
@@ -9,6 +9,8 @@ export default function Buttonbutton({ stageWidth, stageHeight }) {
         next={"Contact"}
         stageWidth={stageWidth}
         stageHeight={stageHeight}
+        change={change}
+        setChange={setChange}
       />
     </>
   );

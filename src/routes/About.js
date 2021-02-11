@@ -19,7 +19,7 @@ import Triangle from "../figure/Triangle";
 import { ColorArray, abilityColorArray } from "../hook/Color.js";
 import "../scss/about.scss";
 
-export default function About({ stageWidth, stageHeight }) {
+export default function About({ stageWidth, stageHeight, change, setChange }) {
   const aboutRef = useRef(),
     divLineLeftRef = useRef(),
     divLineRightRef = useRef();
@@ -308,7 +308,9 @@ export default function About({ stageWidth, stageHeight }) {
             </li>
           </ul>
         </div>
-        <Next nextLink={"theKingOfMains"} />
+        <Next nextLink={"theKingOfMains"}
+          change={change}
+          setChange={setChange} />
       </section>
       <Frame />
       {

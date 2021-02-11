@@ -4,14 +4,14 @@ import ParticleCanvas from "../Components/ParticleCanvas.js";
 import "../scss/home.scss";
 import ShadowTitle from "../hook/ShadowTitle";
 
-export default function Home({ stageWidth, stageHeight, setMenu }) {
+export default function Home({ stageWidth, stageHeight, setMenu, change, setChange }) {
   const toggleMenu = () => {
     setMenu(true);
     let randomBlink = Math.floor(Math.random() * ColorArray.length);
     document.querySelector(".blink").style.backgroundColor =
       ColorArray[randomBlink];
   };
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <>

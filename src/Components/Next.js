@@ -6,7 +6,7 @@ import Triangle from "../figure/Triangle";
 import Bar from "../figure/Bar";
 import "../scss/next.scss";
 
-export default function Next({ nextLink }) {
+export default function Next({ nextLink, change, setChange }) {
   const nextRef = useRef("")
 
   let scrollY,
@@ -16,6 +16,10 @@ export default function Next({ nextLink }) {
     nextBtn,
     nextPer,
     scrollTimeout;
+
+  const scrollFunc = () => {
+    setChange(true)
+  }
 
   const scrollEvent = () => {
     scrollY = window.scrollY;
@@ -29,13 +33,16 @@ export default function Next({ nextLink }) {
 
       if (scrollY >= reverseStart) {
         clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          window.scrollTo({
-            top: reverseStart,
-            behavior: "smooth",
-          });
-          clearTimeout(scrollTimeout);
-        }, 500);
+
+        if (document.body.clientWidth > 900) {
+          scrollTimeout = setTimeout(() => {
+            window.scrollTo({
+              top: reverseStart,
+              behavior: "smooth",
+            });
+            clearTimeout(scrollTimeout);
+          }, 500);
+        }
       } else {
         clearTimeout(scrollTimeout);
       }
@@ -63,7 +70,10 @@ export default function Next({ nextLink }) {
   useEffect(() => {
     clearTimeout(scrollTimeout);
 
-      window.scroll(0, 0);      
+    if (change) {
+      window.scroll(0, 0);
+      setChange(false)
+    }
 
     window.addEventListener("scroll", () => {
       scrollEvent();
@@ -75,7 +85,7 @@ export default function Next({ nextLink }) {
   });
   return (
     <div className="toNext" ref={nextRef}>
-      <Link className="nextBtn" to={`/${nextLink}`}>
+      <Link className="nextBtn" to={`/${nextLink}`} onClick={scrollFunc}>
         <div className="nextPer">
           <Circle />
           <Bar width={30} />

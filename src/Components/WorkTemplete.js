@@ -9,7 +9,7 @@ import { WorkInfo } from "./WorkInfo.js";
 import WORK_BUTTONBUTTON from "./Work/WORK_BUTTONBUTTON";
 import WORK_THEKINGOFMAINS from "./Work/WORK_THEKINGOFMAINS";
 
-export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
+export default function WorkTemplete({ text, next, stageWidth, stageHeight, change, setChange }) {
   const descRef = useRef();
   const imgRef = useRef();
   let scrollY, title;
@@ -113,7 +113,9 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
           </ul>
         </div>
       </section>
-      <Next nextLink={next} />
+      <Next nextLink={next}
+        change={change}
+        setChange={setChange} />
 
       <Frame />
       {stageWidth > 900 ? (

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { ColorArray } from "../hook/Color.js";
 
-export default function Contact({ stageWidth, stageHeight }) {
+export default function Contact({ stageWidth, stageHeight, change, setChange }) {
     const greetRef = useRef()
 
     let serviceID = "choiyeonsuPortfolio2021",

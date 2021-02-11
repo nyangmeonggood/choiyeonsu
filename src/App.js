@@ -10,6 +10,7 @@ import Contact from "./routes/Contact";
 
 function App() {
   const [menu, setMenu] = useState(false);
+  const [change, setChange] = useState(false);
   const [stageWidth, setStageWidth] = useState(window.innerWidth);
   const [stageHeight, setStageHeight] = useState(window.innerHeight);
 
@@ -42,6 +43,8 @@ function App() {
               setMenu={setMenu}
               stageWidth={stageWidth}
               stageHeight={stageHeight}
+              change={change}
+              setChange={setChange}
             />
           )}
         />
@@ -52,6 +55,8 @@ function App() {
               setMenu={setMenu}
               stageWidth={stageWidth}
               stageHeight={stageHeight}
+              change={change}
+              setChange={setChange}
             />
           )}
         />
@@ -62,6 +67,8 @@ function App() {
               setMenu={setMenu}
               stageWidth={stageWidth}
               stageHeight={stageHeight}
+              change={change}
+              setChange={setChange}
             />
           )}
         />
@@ -72,6 +79,8 @@ function App() {
               setMenu={setMenu}
               stageWidth={stageWidth}
               stageHeight={stageHeight}
+              change={change}
+              setChange={setChange}
             />
           )}
         />
@@ -81,6 +90,8 @@ function App() {
             <Contact
               stageWidth={stageWidth}
               stageHeight={stageHeight}
+              change={change}
+              setChange={setChange}
             />
           )}
         />
