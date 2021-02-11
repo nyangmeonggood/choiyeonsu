@@ -29,15 +29,15 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
       setTitleParallex(title, scrollY);
     }
 
-    if(imgRef.current){
-      
+    if (imgRef.current) {
 
-    imgRef.current = document.querySelector(".part3");
-    Object.values(imgRef.current.querySelectorAll("h4")).forEach((item) => {
-      if(item.getBoundingClientRect().top <= stageHeight*0.8){
-        item.classList.add("active")
-      }
-    });
+
+      imgRef.current = document.querySelector(".part3");
+      Object.values(imgRef.current.querySelectorAll("h4")).forEach((item) => {
+        if (item.getBoundingClientRect().top <= stageHeight * 0.8) {
+          item.classList.add("active")
+        }
+      });
     }
   };
 
@@ -72,7 +72,8 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
             <div className="descLeft">
               <h3 className="descTitle">{""}</h3>
               <a href="/" target="_blank">
-                <span>Link To Site</span>
+                {stageWidth > 900 && <span>Link To Site</span>}
+                {stageWidth <= 900 && <span>Link</span>}
                 <svg
                   viewBox="0 0 13 12"
                   fill="none"
@@ -105,10 +106,10 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
             </div>
           </div>
         </div>
-        <div className="part part3"  ref={imgRef}>
+        <div className="part part3" ref={imgRef}>
           <ul>
             {text === "theKingOfMains" && <WORK_THEKINGOFMAINS />}
-            {text === "Buttonbutton" && <WORK_BUTTONBUTTON/>}
+            {text === "Buttonbutton" && <WORK_BUTTONBUTTON />}
           </ul>
         </div>
       </section>
@@ -118,8 +119,8 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight }) {
       {stageWidth > 900 ? (
         <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
       ) : (
-        <></>
-      )}
+          <></>
+        )}
     </>
   );
 }

@@ -55,8 +55,7 @@ export default function About({ stageWidth, stageHeight }) {
     setInfoBoxParallex(part[1], scrollY, part[1], part[2]);
     part[1].querySelector(
       ".content .pic img"
-    ).style.width = part[1].querySelector(".content .pic .bg").style.width = `${
-      stageWidth * 0.45
+    ).style.width = part[1].querySelector(".content .pic .bg").style.width = `${stageWidth * 0.45
     }px`;
 
     for (let i = 0; i < 4; i++) {
@@ -136,7 +135,7 @@ export default function About({ stageWidth, stageHeight }) {
         new SetbGCanvas(x, y, dx, dy, stageWidth, stageHeight, angle, color)
       );
     }
-  }, [stageWidth,stageHeight]);
+  }, [stageWidth, stageHeight]);
 
   useEffect(() => {
     $ctxbGCanvas.current = $bGCanvas.current.getContext("2d");
@@ -169,15 +168,21 @@ export default function About({ stageWidth, stageHeight }) {
             </div>
             <div className="right">
               <div className="balloon">
-                <p>
-                  <b>안녕하세요. 최연수입니다</b>
+                <div className="textBox">
 
-                  대충 내용이 입력 될 위치입니다. 내용이 길면 좀 곤란할테니까 간단하게 조금만 적는것이 좋겠습니다.
-                </p>
+                  <p>
+                    무한동력이라는 웹툰 속 주인공은 이런 대사를 합니다. '자네는 죽기 전에 못 먹은 밥이 생각나겠는가, 아니면 못 이룬 꿈이 생각나겠는가?'
+                    그 대사로 인해 꿈이 무엇인지 하고싶은 일이 무엇인지에 대해서 생각해보게 되었습니다.<br /> 단순히 노동이 아니라 하면서 즐겁고 재밌는 일.
+                    힘들고 고된 업무라도 즐길 수 있는 일. 코딩을 하나씩 배워가면서 오랜 시간 공부해 온 전공을 뒤로하였지만 꿈을 향해 준비해가는 과정이 너무 행복하고 즐거웠습니다.
+                    남들보다 조금 늦고 부족할수도 있다는 생각은 저에게 더 노력하라는 채찍질이 되었고
+                    지친 저를 다시 일어설 수 있게 만들어 준 큰 힘이 되었습니다. <br /><br />누구보다 노력하고 즐기는 사람, 최연수입니다.
+                  </p>
+
+                </div>
                 <figure>
-                  <Circle /> 
-                  <Circle /> 
-                  <Circle /> 
+                  <Circle />
+                  <Circle />
+                  <Circle />
                 </figure>
               </div>
             </div>
@@ -206,7 +211,7 @@ export default function About({ stageWidth, stageHeight }) {
                 <div className="blind"></div>
                 <span className="react">React.js</span>
                 ,{" "}
-                <span className="reactnative" style={{marginLeft: "1vw"}}>React.Native</span>
+                <span className="reactnative" style={{ marginLeft: "1vw" }}>React.Native</span>
               </li>
             </ul>
             <p className="certificate">
@@ -306,11 +311,13 @@ export default function About({ stageWidth, stageHeight }) {
         <Next nextLink={"theKingOfMains"} />
       </section>
       <Frame />
-      {stageWidth > 900 ? (
-        <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
-      ) : (
-        <></>
-      )}
+      {
+        stageWidth > 900 ? (
+          <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
+        ) : (
+            <></>
+          )
+      }
       <div className="divLine divLineLeft" ref={divLineLeftRef}></div>
       <div className="divLine divLineRight" ref={divLineRightRef}></div>
     </>
@@ -359,10 +366,10 @@ class SetbGCanvas {
       ctx.translate(this.x, this.y);
       ctx.rotate(
         Math.PI / this.angle +
-          Math.atan2(
-            this.stageWidth / 2 - this.x,
-            -this.stageHeight / 2 + this.y
-          )
+        Math.atan2(
+          this.stageWidth / 2 - this.x,
+          -this.stageHeight / 2 + this.y
+        )
       );
 
       for (let i = 0; i < this.angle; i++) {

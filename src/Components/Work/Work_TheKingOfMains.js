@@ -1,31 +1,50 @@
 import imgIntro from "../../img/kom/kom_intro.jpg";
-import img0 from "../../img/kom/kom_main.jpg";
-import img1 from "../../img/kom/kom_1.jpg";
-import img2 from "../../img/kom/kom_2.jpg";
-import img3 from "../../img/kom/kom_3.jpg";
-import img4 from "../../img/kom/kom_4.jpg";
-import img5 from "../../img/kom/kom_5.jpg";
-import img6 from "../../img/kom/kom_6.jpg";
-import gif0 from "../../img/kom/m0.gif";
-import gif2 from "../../img/kom/m2.gif";
-import gif3 from "../../img/kom/m3.gif";
+import imgMain from "../../img/kom/kom_main.jpg";
+import kom_thumbnail from "../../img/kom/kom_thumbnail.jpg";
+import kom_how from "../../img/kom/kom_how.jpg";
+import kom_howGif from "../../img/kom/kom_how.gif";
+import kom_mobile1 from "../../img/kom/kom_mobile1.jpg";
+import kom_mobile2 from "../../img/kom/kom_mobile2.jpg";
+import kom_arrowenter from "../../img/kom/kom_arrowenter.gif";
+import kom_m from "../../img/kom/kom_m.jpg";
+import kom_mGif from "../../img/kom/kom_m.gif";
+import kom_spacebar from "../../img/kom/kom_spacebar.jpg";
+import kom_spacebarGif from "../../img/kom/kom_spacebar.gif";
 
 export default function WORK_THEKINGOFMAINS() {
   return (
     <>
       <li className="sgap">
         <div className="imgBox">
-          <img src={imgIntro} />
+          <img src={imgIntro} alt="intro" />
         </div>
       </li>
 
       <li>
         <div className="imgBox">
-          <img src={img0} />
+          <img src={imgMain} alt="main" />
         </div>
       </li>
 
-      <li className="multi start">
+      <li className="multi center msgap">
+        <div className="textBox">
+          <h4>How To Use</h4>
+          <p>
+            조작법에 대해 설명을 제공합니다. <b>좌우 방향키를 이용</b>해서 이동이 가능하고 <b>마지막 탭에서 ENTER키</b>를 눌러 닫을 수 있습니다. <b>우측 상단의 SKIP 버튼</b>을 누르거나 통상적으로 취소키로 사용되는 <b>ESC키를 눌러서도 닫을 수</b> 있습니다.
+        </p>
+        </div>
+      </li>
+
+      <li>
+        <div className="imgBox right">
+          <div className="gifBox">
+            <img src={kom_how} alt="how" />
+            <img src={kom_howGif} className="gif" alt="howGif" />
+          </div>
+        </div>
+      </li>
+
+      <li className="multi start thumbnail">
         <div className="textBox right">
           <h4>Thumbnail</h4>
           <p>
@@ -36,39 +55,33 @@ export default function WORK_THEKINGOFMAINS() {
             포함되어 있습니다.
           </p>
         </div>
-        <div className="bigImg" style={{ width: "33.33%" }}>
-          <img src={img4} className="m" />
+        <div className="bigImg" style={{ width: document.body.clientWidth > 900 ? "33.33%" : "100%" }}>
+          <img src={kom_thumbnail} className="m" alt="thumbnail" />
         </div>
       </li>
 
-      <li>
-        <div className="imgBox">
-          <img src={img1} />
-        </div>
-      </li>
-
-    <li className="multi center">
-      <div className="textBox">
-        <h4>Keyboard Function</h4>
-        <p>
-          격투게임이 모티브인만큼 키보드를 이용한 기능들을 구현해봤습니다.
+      <li className="multi center msgap">
+        <div className="textBox">
+          <h4>Keyboard Function</h4>
+          <p>
+            격투게임이 모티브인만큼 키보드를 이용한 기능들을 구현해봤습니다.
           메인들을 키보드의 <b> 방향키를 이용해 이동</b>하고{" "}
-          <b>enter키를 이용해 선택</b>합니다. 선택을 하면 상하좌우 중 랜덤한
+            <b>enter키를 이용해 선택</b>합니다. 선택을 하면 상하좌우 중 랜덤한
           방향으로 선택한 메인이 노출됩니다.
         </p>
-      </div>
-    </li>
+        </div>
+      </li>
 
       <li>
         <div className="imgBox right">
           <div className="gifBox">
-            <img src={img0} />
-            <img src={gif0} className="gif" />
+            <img src={imgMain} alt="main" />
+            <img src={kom_arrowenter} className="gif" alt="arrowenter" />
           </div>
         </div>
       </li>
 
-      <li className="multi end">
+      <li className="multi end msgap">
         <div className="textBox">
           <h4>Keyboard Function</h4>
           <p>노출 된 모달화면에서는{" "}
@@ -83,37 +96,52 @@ export default function WORK_THEKINGOFMAINS() {
       <li className=" sgap">
         <div className="imgBox left">
           <div className="gifBox">
-            <img src={img2} />
-            <img src={gif2} className="gif" />
+            <img src={kom_m} alt="m" />
+            <img src={kom_mGif} className="gif" alt="mGif" />
           </div>
         </div>
       </li>
       <li>
         <div className="imgBox right">
           <div className="gifBox">
-            <img src={img3} />
-            <img src={gif3} className="gif" />
+            <img src={kom_spacebar} alt="spacebar" />
+            <img src={kom_spacebarGif} className="gif" alt="spacebarGif" />
           </div>
         </div>
 
       </li>
-      
+
       <li className="multi triple">
-        <div>
-          <img src={img5} className="s" />
-        </div>
-        <div>
-          <img src={img6} className="s" />
-        </div>
-        <div className="textBox">
-          <h4>Mobile</h4>
-          <p>
-            'The king of Mains'의 모바일 버전은 데스크탑 버전에서의 모든 기능을
-            이용할 수는 없습니다. 하지만 모바일 사이즈에서도 각 메인들을 확인 할
-            수 있으며 새로운 창에서 해당 페이지를 이용하는 기능은 사용이
-            가능합니다.
+
+        {document.body.clientWidth < 900 && <>
+          <div className="textBox" style={{ marginBottom: "40px" }}>
+            <h4>Mobile</h4>
+            <p>
+              'The king of Mains'의 모바일 버전은 데스크탑 버전에서의 모든 기능을
+              이용할 수는 없습니다. 하지만 모바일 사이즈에서도 각 메인들을 확인 할
+              수 있으며 새로운 창에서 해당 페이지를 이용하는 기능은 사용이
+              가능합니다.
           </p>
+          </div></>}
+
+        <div>
+          <img src={kom_mobile1} className="s" alt="mobile" />
         </div>
+        <div>
+          <img src={kom_mobile2} className="s" alt="mobile" />
+        </div>
+
+        {document.body.clientWidth >= 900 && <>
+          <div className="textBox">
+            <h4>Mobile</h4>
+            <p>
+              'The king of Mains'의 모바일 버전은 데스크탑 버전에서의 모든 기능을
+              이용할 수는 없습니다. 하지만 모바일 사이즈에서도 각 메인들을 확인 할
+              수 있으며 새로운 창에서 해당 페이지를 이용하는 기능은 사용이
+              가능합니다.
+          </p>
+          </div></>}
+
       </li>
     </>
   );

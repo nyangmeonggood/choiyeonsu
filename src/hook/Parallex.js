@@ -13,8 +13,9 @@ export const Parallex = {
   InfoBoxPos: [50, 32],
   InfoBoxWidthMobile: [0, 70],
   InfoBoxOpacity: [0, 1],
-  balloon:[-105,0],
-  balloonWidth:[33.33,68],
+  balloon: [-105, 0],
+  balloonWidth: [33.33, 68],
+  balloonText: [100, -50],
   abilitys: [-100, 100],
   timeLine: [0, -100],
 };
@@ -34,7 +35,7 @@ export function setParallex(
   returnParallex =
     parallexAction[0] +
     ((parallexAction[1] - parallexAction[0]) * relativeScrollY) /
-      parallexDuration;
+    parallexDuration;
 
   if (returnParallex >= parallexAction[1]) returnParallex = parallexAction[1];
 
@@ -198,7 +199,7 @@ function returndivLine(relativeLineScroll, lineDuration, num, lineParallex) {
   result =
     lineParallex[num - 1] +
     ((lineParallex[num] - lineParallex[num - 1]) * relativeLineScroll) /
-      lineDuration;
+    lineDuration;
 
   return result;
 }
@@ -207,6 +208,8 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
   let picBox = target.querySelector(".content .pic");
   let picRight = target.querySelector(".content .right");
   let picBalloon = target.querySelector(".right .balloon");
+  let balloonText = target.querySelector(".balloon .textBox p");
+  let circles = Object.values(target.querySelectorAll(".circle"));
 
   let lineDuration = window.innerHeight / 2;
 
@@ -216,7 +219,7 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
   let relativeScrollY1 = scrollY - moveStartOffset1;
   let relativeScrollY2 = scrollY - moveStartOffset2;
 
-  let returnWidth, returnPos, returnOpacity, returnBalloon,returnBalloonWidth;
+  let returnWidth, returnPos, returnOpacity, returnBalloon, returnBalloonWidth, returnCurrentBalloon, returnBalloonText;
 
   if (scrollY < moveStartOffset1) {
     //part1 start
@@ -285,16 +288,18 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
     );
   }
 
-  if(scrollY < moveStartOffset1 + lineDuration){
+  if (scrollY <= moveStartOffset1 + lineDuration) {
     returnBalloon = Parallex.balloon[0]
     returnBalloonWidth = Parallex.balloonWidth[0]
-  } else if (scrollY >= moveStartOffset1 + lineDuration && scrollY < moveStartOffset2) {
+
+  } else if (scrollY > moveStartOffset1 + lineDuration && scrollY < moveStartOffset2) {
     returnBalloon = returnParallex(
       Parallex.balloon,
       relativeScrollY1 - lineDuration,
       lineDuration,
       true
     );
+    returnBalloonWidth = Parallex.balloonWidth[0]
   } else if (scrollY >= moveStartOffset2) {
     returnBalloonWidth = returnParallex(
       Parallex.balloonWidth,
@@ -304,11 +309,46 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
     );
   }
 
+  if (scrollY < moveStartOffset1 + lineDuration * 2) {
+    returnCurrentBalloon = Parallex.addNext[0]
+    returnBalloonText = Parallex.balloonText[0]
+    circles.forEach((item) => {
+      item.classList.remove("active")
+    })
+  } else if (scrollY >= moveStartOffset1 + lineDuration * 2 && scrollY < moveStartOffset2) {
+
+    returnBalloonText = returnParallex(
+      Parallex.balloonText,
+      relativeScrollY1 - lineDuration * 2,
+      lineDuration,
+      false
+    );
+
+    returnCurrentBalloon = Math.floor(returnParallex(
+      Parallex.addNext,
+      relativeScrollY1 - lineDuration * 2,
+      lineDuration,
+      true
+    )
+    );
+
+    circles.forEach((item, index) => {
+      item.classList.remove("active")
+
+      if (index <= returnCurrentBalloon + 1) {
+        return item.classList.add("active")
+      }
+    }
+    )
+
+  }
+
   picBox.style.width = `${returnWidth}%`;
   picBox.style.left = `${returnPos}%`;
   picBox.style.opacity = returnOpacity;
   picBalloon.style.transform = `translateX(${returnBalloon}%)`;
   picRight.style.width = `${returnBalloonWidth}%`;
+  balloonText.style.transform = `translate(-50%,${returnBalloonText}%)`;
   picBalloon.style.opacity = returnOpacity;
   picBox.style.filter = `saturate(${returnOpacity})`;
 
@@ -402,7 +442,7 @@ export function setNextFigureParallex(target, scrollY, reverseStart) {
 
   returnAdd = Math.floor(
     Parallex.addNext[0] +
-      ((Parallex.addNext[1] - Parallex.addNext[0]) * relativeScrollY) / duration
+    ((Parallex.addNext[1] - Parallex.addNext[0]) * relativeScrollY) / duration
   );
 
   if (returnAdd >= Parallex.addNext[1]) returnAdd = Parallex.addNext[1];

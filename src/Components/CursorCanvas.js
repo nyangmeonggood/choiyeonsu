@@ -110,6 +110,22 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
             $Cursor.current[0].abilityArc = 0;
           });
       }
+
+      document
+        .querySelector(`.part4`)
+        .addEventListener("pointerenter", () => {
+          $Cursor.current[0].part = "3";
+          $Cursor.current[0].text = "SCROLL·SLOW·";
+
+        });
+
+      document
+        .querySelector(`.part4`)
+        .addEventListener("pointerout", () => {
+          $Cursor.current[0].part = "1";
+          $Cursor.current[0].text = "SCROLL·DOWN·";
+
+        });
     }
     if (document.querySelector(".toNext")) {
       document
@@ -202,6 +218,17 @@ class setCursor {
       ctx.restore();
     }
 
+    if (this.part === "3") {
+      ctx.font = "20px S-CoreDream-9Black";
+      ctx.rotate(this.startRotation);
+      for (let i = 0; i < this.angle; i++) {
+        ctx.save();
+        ctx.rotate(i * this.numRadsPerLetter);
+        ctx.fillStyle = this.color;
+        ctx.fillText(this.text[i], 0, this.size);
+        ctx.restore();
+      }
+    }
     ctx.restore();
   }
   update(canvas, ctx, canvasMouse) {
@@ -214,6 +241,10 @@ class setCursor {
     if (this.part === "1") {
       document.body.style.cursor = "pointer";
       this.startRotation -= 0.003;
+    }
+    if (this.part === "3") {
+      document.body.style.cursor = "pointer";
+      this.startRotation -= 0.001;
     }
     if (this.part === "2") {
       document.body.style.cursor = "none";

@@ -9,8 +9,15 @@
   .part {
     position: relative;
     width: 100%;
-    font-size: 5vw;
     box-sizing: border-box;
+
+    @media screen and (min-width:900px){
+      font-size: 5vw;
+    }
+  
+    @media screen and (max-width:900px){
+      font-size: 3.5vw;
+    }
 
     .shadowTitle {
       @include posCenter;
@@ -31,14 +38,28 @@
 
     &.part2,
     &.part3 {
-      padding: 120px 100px;
       box-sizing: border-box;
+
+      @media screen and (min-width:900px){
+        padding: 120px 100px;
+      }
+    
+      @media screen and (max-width:900px){
+        padding: 60px 20px;
+      }
     }
 
     &.part2 {
-      font-size: 1vw;
       background-color: $Red;
       color: #fff;
+
+      @media screen and (min-width:900px){
+        font-size:1vw;
+      }
+    
+      @media screen and (max-width:900px){
+        font-size: 3.5vw;
+      }
 
       .desc {
         width: 80%;
@@ -46,27 +67,63 @@
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
+      
+        @media screen and (max-width:900px){
+          flex-direction: column;
+        }
       }
 
       .descLeft {
-        width: 40%;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
+        
+
+        @media screen and (min-width:900px){
+          width: 40%;
+          flex-direction: column;
+        }
+      
+        @media screen and (max-width:900px){
+          width: 100%;
+          margin-bottom: 30px;
+        }
+
         .descTitle {
           @include Bold;
-          font-size: 4vw;
           line-height: 1em;
+
+          @media screen and (min-width:900px){
+            font-size: 4vw;
+          }
+        
+          @media screen and (max-width:900px){
+            font-size: 10vw;
+          }
         }
 
         a {
-          padding: 10px 0;
           width: 30%;
           color: #111;
           background-color: #fff;
           border-radius: 100px;
           text-align: center;
           transition: transform 0.2s;
+
+          @media screen and (min-width:900px){
+            padding: 10px 0;
+          }
+        
+          @media screen and (max-width:900px){
+            @include Regular;
+            height: fit-content;
+            padding: 4px 0;
+            font-size: 3vw;
+            letter-spacing: 0.01em;
+            svg{
+              display: none;
+            }
+          }
+
           &:hover {
             transform: scale(1.1);
           }
@@ -85,13 +142,33 @@
         }
       }
       .descRight {
-        width: 60%;
+
+        @media screen and (min-width:900px){
+          width: 60%;
+        }
+      
+        @media screen and (max-width:900px){
+          width: 100%;
+        }
 
         .info {
           display: flex;
-          align-items: center;
           justify-content: space-between;
           margin-bottom: 50px;
+
+          @media screen and (min-width:900px){
+            align-items: center;
+          }
+        
+          @media screen and (max-width:900px){
+            align-items: flex-start;
+
+            flex-wrap: wrap;
+            li{
+              width: 45%;
+              margin-bottom: 10px;
+            }
+          }
 
           b {
             @include Bold;
@@ -108,6 +185,10 @@
 
         p {
           @include XLight;
+        
+          @media screen and (max-width:900px){
+            line-height: 1.5em;
+          }
         }
       }
     }
@@ -126,18 +207,40 @@
           margin-bottom: 120px;
 
           &.sgap {
-            margin-bottom: 60px;
+            @media screen and (min-width:900px){
+              margin-bottom: 60px;
+            }
+          
+            @media screen and (max-width:900px){
+              margin-bottom: 20px;
+            }
+          }
+
+          &.msgap {          
+            @media screen and (max-width:900px){
+              margin-bottom: 40px;
+
+
+            }
           }
 
           h4 {
             display: inline-block;
             position: relative;
             @include Bold;
-            font-size: 1.8vw;
             text-transform: uppercase;
             margin-left: 10px;
-            margin-bottom: 60px;
             z-index: 1;
+
+            @media screen and (min-width:900px){
+              font-size: 1.8vw;
+              margin-bottom: 60px;
+            }
+          
+            @media screen and (max-width:900px){
+              font-size: 7vw;
+              margin-bottom: 30px;
+            }
 
             &.red {
               &::before {
@@ -183,10 +286,22 @@
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
+          
+            @media screen and (max-width:900px){
+              flex-wrap: wrap;
+            }
 
             p {
               @include Light;
-              line-height: 1.8em;
+
+              @media screen and (min-width:900px){
+                line-height: 1.8em;
+              }
+            
+              @media screen and (max-width:900px){
+                font-size: 4vw;
+                line-height: 1.5em;
+              }
               b {
                 @include Bold;
               }
@@ -196,10 +311,22 @@
               box-sizing: border-box;
 
               &.left {
-                padding-left: 5%;
+                @media screen and (min-width:900px){
+                  padding-left: 5%;
+                }
+              
+                @media screen and (max-width:900px){
+                  padding-left: 0;
+                }
               }
               &.right {
-                padding-right: 5%;
+                @media screen and (min-width:900px){
+                  padding-right: 5%;
+                }
+              
+                @media screen and (max-width:900px){
+                  padding-right: 0;
+                }
               }
             }
 
@@ -207,7 +334,13 @@
               justify-content: center;
 
               > div {
-                width: 33.33%;
+                @media screen and (min-width:900px){
+                  width: 33.33%;
+                }
+              
+                @media screen and (max-width:900px){
+                  width: 100%;
+                }
               }
             }
 
@@ -216,7 +349,14 @@
               justify-content: flex-start;
 
               > div {
-                width: 33.33%;
+
+                @media screen and (min-width:900px){
+                  width: 33.33%;
+                }
+              
+                @media screen and (max-width:900px){
+                  width: 100%;
+                }
               }
             }
 
@@ -225,13 +365,31 @@
               justify-content: flex-end;
 
               > div {
-                width: 33.33%;
+
+                @media screen and (min-width:900px){
+                  width: 33.33%;
+                }
+              
+                @media screen and (max-width:900px){
+                  width: 100%;
+                }
               }
             }
 
             &.triple {
               > div {
-                width: 30%;
+
+                @media screen and (min-width:900px){
+                  width: 30%;
+                }
+              
+                @media screen and (max-width:900px){
+                  width: 48%;
+
+                  &.textBox{
+                    width: 100%;
+                  }
+                }
               }
             }
 
@@ -245,11 +403,25 @@
               }
 
               &.m {
-                padding: 40px 80px;
+
+                @media screen and (min-width:900px){
+                  padding: 40px 80px;
+                }
+              
+                @media screen and (max-width:900px){
+                  padding: 20px 10px;
+                }
               }
 
               &.s {
-                padding: 100px 80px;
+
+                @media screen and (min-width:900px){
+                  padding: 100px 80px;
+                }
+              
+                @media screen and (max-width:900px){
+                  padding: 40px 10px;
+                }
               }
             }
           }
@@ -286,8 +458,15 @@
             }
 
             .gifBox {
-              width: 66.66%;
               position: relative;
+
+              @media screen and (min-width:900px){
+                width: 66.66%;
+              }
+            
+              @media screen and (max-width:900px){
+                width: 100%;
+              }
             }
 
             .gif {
@@ -304,6 +483,26 @@
   .part {
     &.part2 {
       background-color: $kom;
+    }
+    &.part3 {
+      li.thumbnail{
+        .textBox{
+          margin-bottom: 40px;
+        }
+      }
+    }
+  }
+}
+
+.work-Buttonbutton {
+  .part {
+    &.part3 {
+      li.thumbnail{
+        .textBox {
+          margin-bottom: 40px;
+        }
+        
+      }
     }
   }
 }
