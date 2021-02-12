@@ -50,7 +50,7 @@
     
       @media screen and (max-width:900px){
         font-size: 16vw !important;
-        top: 2% !important;
+        top: 4% !important;
       }
     }
 
@@ -104,6 +104,8 @@
         -moz-appearance: none;
              appearance: none;
              border-radius: 0;
+             user-select: text !important;
+             -webkit-user-select: text !important;
         @media screen and (max-width:900px){
           font-size: 3vw;
         }

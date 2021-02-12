@@ -5,18 +5,19 @@ import "react-app-polyfill/stable";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import Sorry from "./Components/Sorry";
 
 var userAgent = navigator.userAgent.toLowerCase();
 
-if(userAgent.indexOf('trident')>-1){
+if (userAgent.indexOf('trident') > -1) {
   ReactDOM.render(
     <React.StrictMode>
 
-      <div>Sorry, This Browser can't open this Site. Plz use another Browser like Chrome, Opara..</div>
+      <Sorry />
     </React.StrictMode>,
     document.getElementById("Portfolio")
   );
-}else{
+} else {
   ReactDOM.render(
     <React.StrictMode>
       <App />

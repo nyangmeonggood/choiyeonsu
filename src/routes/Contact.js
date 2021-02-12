@@ -2,11 +2,15 @@ import ParticleCanvas from "../Components/ParticleCanvas.js";
 import ShadowTitle from "../hook/ShadowTitle";
 import "../scss/contact.scss";
 import { useForm } from "react-hook-form";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ColorArray } from "../hook/Color.js";
 
 export default function Contact({ stageWidth, stageHeight, change, setChange }) {
     const greetRef = useRef()
+
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [comment, setComment] = useState("")
 
     let serviceID = "choiyeonsuPortfolio2021",
         templateID = "template_d4xdkg9";
@@ -28,6 +32,9 @@ export default function Contact({ stageWidth, stageHeight, change, setChange }) 
         greetRef.current.innerHTML = "이메일 전송이 완료되었습니다!"
         sendFeedback(serviceID, templateID, { from_name: data.name, message_html: data.comment, reply_to: data.email })
         r.target.reset();
+        setName("")
+        setEmail("")
+        setComment("")
     }
 
     useEffect(() => {
@@ -76,6 +83,8 @@ export default function Contact({ stageWidth, stageHeight, change, setChange }) 
                                     autoComplete="off"
                                     placeholder="이름을 입력해주세요"
                                     name="name"
+                                    value={name}
+                                    onChange={e => setName(e.target.value)}
                                     ref={
                                         register({
                                             required: true,
@@ -97,6 +106,8 @@ export default function Contact({ stageWidth, stageHeight, change, setChange }) 
                                     autoComplete="off"
                                     placeholder="이메일을 입력해주세요"
                                     name="email"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
                                     ref={
                                         register({
                                             required: true,
@@ -118,6 +129,8 @@ export default function Contact({ stageWidth, stageHeight, change, setChange }) 
                                     autoComplete="off"
                                     placeholder="내용을 입력해주세요"
                                     name="comment"
+                                    value={comment}
+                                    onChange={e => setComment(e.target.value)}
                                     ref={
                                         register({
                                             required: true
