@@ -7,15 +7,16 @@ export const Parallex = {
   addNext: [0, 2],
   divLineLeft: [50, 33.33, 32, 50],
   divLineRight: [50, 66.66, 32, 50],
-  divLineLeftMobile: [50, 15, 32, 50],
-  divLineRightMobile: [50, 85, 32, 50],
+  divLineLeftMobile: [50, 15, 20, 50],
+  divLineRightMobile: [50, 85, 20, 50],
   InfoBoxWidth: [0, 33.33],
   InfoBoxPos: [50, 32],
+  InfoBoxPosMobile: [50, 20],
   InfoBoxWidthMobile: [0, 70],
   InfoBoxOpacity: [0, 1],
   balloon: [-105, 0],
   balloonWidth: [33.33, 68],
-  balloonText: [100, -50],
+  balloonText: [100, -45],
   abilitys: [-100, 100],
   timeLine: [0, -100],
 };
@@ -178,12 +179,22 @@ export function setdivLineRefParallex(
   ) {
     returnLeft = lineParallex[2];
   } else if (scrollY >= moveStartOffset3) {
-    returnLeft = returndivLine(
-      relativeLineScrollY3,
-      lineDuration,
-      3,
-      lineParallex
-    );
+    if (document.body.clientWidth >= 900) {
+      returnLeft = returndivLine(
+        relativeLineScrollY3,
+        lineDuration,
+        3,
+        lineParallex
+      );
+    }
+    else if (document.body.clientWidth < 900) {
+      returnLeft = returndivLine(
+        relativeLineScrollY3,
+        lineDuration / 3,
+        3,
+        lineParallex
+      );
+    }
     if (returnLeft >= lineParallex[3]) returnLeft = lineParallex[3];
   }
 
@@ -223,7 +234,6 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
 
   if (scrollY < moveStartOffset1) {
     //part1 start
-
     if (window.innerWidth > 900) {
       returnWidth = Parallex.InfoBoxWidth[0];
     } else {
@@ -266,6 +276,12 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
         lineDuration,
         false
       );
+      returnPos = returnParallex(
+        Parallex.InfoBoxPos,
+        relativeScrollY2,
+        lineDuration,
+        false
+      );
     } else {
       returnWidth = returnReverseParallex(
         Parallex.InfoBoxWidthMobile,
@@ -273,15 +289,15 @@ export function setInfoBoxParallex(target, scrollY, moveStart, moveStart2) {
         lineDuration,
         false
       );
+      returnPos = returnParallex(
+        Parallex.InfoBoxPosMobile,
+        relativeScrollY2,
+        lineDuration,
+        false
+      );
     }
     returnOpacity = returnReverseParallex(
       Parallex.InfoBoxOpacity,
-      relativeScrollY2,
-      lineDuration,
-      false
-    );
-    returnPos = returnParallex(
-      Parallex.InfoBoxPos,
       relativeScrollY2,
       lineDuration,
       false
@@ -414,6 +430,20 @@ export function setTimelineParallex(target, scrollY) {
   });
 
   slide.style.transform = `translate(-50%, ${returnTranslate}%)`;
+}
+
+export function setTimelineParallexMobile(target) {
+  let slide = target.querySelector(".timeLine");
+  let slideLi = Object.values(slide.children);
+  let duration = window.innerHeight;
+
+  slideLi.forEach((item) => {
+    if (duration * 0.8 >= item.getBoundingClientRect().top) {
+      return item.classList.add("active");
+    } else {
+      return item.classList.remove("active");
+    }
+  });
 }
 
 export function setNextParallex(target, scrollY, reverseStart) {

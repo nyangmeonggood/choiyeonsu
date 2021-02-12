@@ -6,7 +6,7 @@ import Triangle from "../figure/Triangle";
 import Bar from "../figure/Bar";
 import "../scss/next.scss";
 
-export default function Next({ nextLink, change, setChange }) {
+export default function Next({ nextLink, change, setChange, device }) {
   const nextRef = useRef("")
 
   let scrollY,
@@ -69,6 +69,10 @@ export default function Next({ nextLink, change, setChange }) {
 
   useEffect(() => {
     clearTimeout(scrollTimeout);
+
+    if (device === "desktop") {
+      window.scroll(0, 0);
+    }
 
     if (change) {
       window.scroll(0, 0);

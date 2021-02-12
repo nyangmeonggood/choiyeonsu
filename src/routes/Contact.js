@@ -66,7 +66,7 @@ export default function Contact({ stageWidth, stageHeight, change, setChange }) 
                 <div>
                     <ShadowTitle text={"Contact"} />
 
-                    <h3 ref={greetRef}>Thx for watching my Portfolio<br />If you wanna contact with me , send me a message!</h3>
+                    <h3 ref={greetRef}>포트폴리오를 시청해주셔서 감사합니다.<br />문의사항 및 기타의견은 아래의 양식으로 전송해주세요!</h3>
                     <div className="formBox">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div>

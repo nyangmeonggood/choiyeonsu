@@ -13,10 +13,26 @@ function App() {
   const [change, setChange] = useState(false);
   const [stageWidth, setStageWidth] = useState(window.innerWidth);
   const [stageHeight, setStageHeight] = useState(window.innerHeight);
+  const [device, setDevice] = useState(false)
 
   const setResize = () => {
     setStageWidth(window.innerWidth);
     setStageHeight(window.innerHeight);
+  };
+
+  const getDeviceType = () => {
+    const ua = navigator.userAgent.toLowerCase();
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return "tablet";
+    }
+    if (
+      /mobile|ip(hone|od)|android|blackberry|iemobile|kindle|silk-accelerated|(hpw|web)os|opera m(obi|ini)/.test(
+        ua
+      )
+    ) {
+      return "mobile";
+    }
+    return "desktop";
   };
 
   // resize
@@ -30,6 +46,15 @@ function App() {
     });
   }, [stageWidth, stageHeight]);
   //** resize
+
+  // device
+  useEffect(() => {
+    let device = getDeviceType()
+    setDevice(device)
+
+    console.log(device)
+  }, []);
+  //** device
 
   return (
     <>
@@ -45,18 +70,7 @@ function App() {
               stageHeight={stageHeight}
               change={change}
               setChange={setChange}
-            />
-          )}
-        />
-        <Route
-          path="/theKingOfMains"
-          render={() => (
-            <TheKingOfMains
-              setMenu={setMenu}
-              stageWidth={stageWidth}
-              stageHeight={stageHeight}
-              change={change}
-              setChange={setChange}
+              device={device}
             />
           )}
         />
@@ -69,6 +83,20 @@ function App() {
               stageHeight={stageHeight}
               change={change}
               setChange={setChange}
+              device={device}
+            />
+          )}
+        />
+        <Route
+          path="/theKingOfMains"
+          render={() => (
+            <TheKingOfMains
+              setMenu={setMenu}
+              stageWidth={stageWidth}
+              stageHeight={stageHeight}
+              change={change}
+              setChange={setChange}
+              device={device}
             />
           )}
         />
@@ -81,6 +109,7 @@ function App() {
               stageHeight={stageHeight}
               change={change}
               setChange={setChange}
+              device={device}
             />
           )}
         />
@@ -92,6 +121,7 @@ function App() {
               stageHeight={stageHeight}
               change={change}
               setChange={setChange}
+              device={device}
             />
           )}
         />

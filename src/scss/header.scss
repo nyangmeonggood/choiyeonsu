@@ -15,13 +15,6 @@ header {
   padding: 0 30px;
   box-sizing: border-box;
 
-  &:hover {
-    h1 {
-      svg {
-      }
-    }
-  }
-
   h1 {
     width: 40px;
     height: 40px;
@@ -156,12 +149,36 @@ header {
   .menu {
     @include Bold;
     position: absolute;
-    top: 50%;
-    left: 1%;
-    transform: translateY(-50%) rotate(90deg);
+    width: 24px;height: 24px;
     z-index: 1;
     cursor: pointer;
     letter-spacing: 0.1em;
+
+    @media screen and (min-width:900px){
+      top: 50%;
+      left: 2%;
+      transform: translateY(-50%);
+    }
+  
+    @media screen and (max-width:900px){
+      top: 30px;
+      right: calc(2% + 10px);
+      transform: translateY(-50%);
+    }
+
+    span{
+      @include posCenter;
+      width: 100%; height: 2px;
+      background-color: #111;
+
+      &:nth-of-type(1){
+        transform: translate(-50%,-50%) rotate(45deg);
+      }
+
+      &:nth-of-type(2){
+        transform: translate(-50%,-50%) rotate(-45deg);
+      }
+    }
   }
   .content {
     position: absolute;
@@ -173,25 +190,95 @@ header {
     transition: left 3s 0.2s;
 
     .logo {
-      width: 45%;
-      height: 100%;
+
       svg {
         width: 100%;
         height: 100%;
+
+        &:hover{
+          cursor: crosshair;
+          circle,rect,polygon{
+            animation-play-state: paused;
+          }
+        }
+
+          circle {
+            animation: titleCircle 2s infinite;
+            animation-direction: alternate;
+            transform-origin: center;
+            @keyframes titleCircle {
+              0% {
+                transform: translate(0%, 0%) scale(0.95);
+              }
+              100% {
+                transform: translate(-2%, -4%) scale(1);
+              }
+            }
+          }
+          rect {
+            animation: titleRect 2.5s infinite;
+            animation-direction: alternate;
+            transform-origin: center bottom;
+            @keyframes titleRect {
+              0% {
+                transform: translate(0) rotate(0deg);
+              }
+              100% {
+                transform: translate(0.2%, 0.2%) rotate(10deg);
+              }
+            }
+          }
+          polygon {
+            animation: titlePolygon 2.5s infinite;
+            animation-direction: alternate;
+            transform-origin: center bottom;
+            @keyframes titlePolygon {
+              0% {
+                transform: translate(1%, 4%) rotate(-10deg);
+              }
+              100% {
+                transform: translate(0) rotate(0deg);
+              }
+            }
+          }
+        
+      }
+      @media screen and (min-width:900px){
+        width: 45%;
+        height: 100%;
+      }
+    
+      @media screen and (max-width:900px){
+        width: 100%;
+        height: 60%;
       }
     }
 
     > ul {
       position: absolute;
-      top: 50%;
       right: 2%;
-      transform: translateY(-50%);
       display: flex;
       flex-direction: column;
+
+      @media screen and (min-width:900px){
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    
+      @media screen and (max-width:900px){
+        bottom: 15%;
+      }
       li {
         position: relative;
         display: inline-block;
-        text-align: right;
+
+        @media screen and (min-width:900px){
+          text-align: right;
+        }
+      
+        @media screen and (max-width:900px){
+          text-align: center;
+        }
         // &::after {
         //   @include XLight;
         //   content: attr(data-desc);
@@ -205,10 +292,18 @@ header {
         b {
           @include Black;
           display: contents;
-          font-size: 7vw;
           color: transparent;
           -webkit-text-stroke: 2px;
           -webkit-text-stroke-color: #111;
+
+          @media screen and (min-width:900px){
+            font-size: 7vw;
+          }
+        
+          @media screen and (max-width:900px){
+            font-size:11vw;
+          }
+
           a {
             display: inline-block;
             height: 100%;

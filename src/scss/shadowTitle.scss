@@ -14,6 +14,7 @@
 
   @media screen and (max-width:900px){
     font-size: 10vw;    
+    padding-bottom: 5%;
   }
 
   span {
@@ -22,6 +23,14 @@
     -webkit-text-stroke: 2px;
     -webkit-text-stroke-color: #111;
     color: #111;
+
+    @media screen and (min-width: 900px) {
+      transform: translateY(100%);
+    }
+
+    @media screen and (max-width: 900px) {
+      transform: translateY(150%);
+    }
   }
 
   &.active {

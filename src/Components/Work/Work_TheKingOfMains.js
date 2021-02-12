@@ -104,7 +104,7 @@ export default function WORK_THEKINGOFMAINS() {
       <li>
         <div className="imgBox right">
           <div className="gifBox">
-            <img src={kom_spacebar} alt="spacebar" />
+            <img src={kom_spacebar} style={{ opacity: "0" }} alt="spacebar" />
             <img src={kom_spacebarGif} className="gif" alt="spacebarGif" />
           </div>
         </div>

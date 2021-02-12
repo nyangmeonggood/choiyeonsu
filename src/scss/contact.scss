@@ -99,8 +99,11 @@
         background-color: #fff;
         padding: 10px;
         box-sizing: border-box;
-        transition: all 0.1s;
-    
+        transition: all 0.1s;    
+        -webkit-appearance: none;
+        -moz-appearance: none;
+             appearance: none;
+             border-radius: 0;
         @media screen and (max-width:900px){
           font-size: 3vw;
         }

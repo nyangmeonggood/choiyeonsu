@@ -9,7 +9,7 @@ import { WorkInfo } from "./WorkInfo.js";
 import WORK_BUTTONBUTTON from "./Work/WORK_BUTTONBUTTON";
 import WORK_THEKINGOFMAINS from "./Work/WORK_THEKINGOFMAINS";
 
-export default function WorkTemplete({ text, next, stageWidth, stageHeight, change, setChange }) {
+export default function WorkTemplete({ text, next, stageWidth, stageHeight, change, setChange, device }) {
   const descRef = useRef();
   const imgRef = useRef();
   let scrollY, title;
@@ -115,10 +115,11 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight, chan
       </section>
       <Next nextLink={next}
         change={change}
-        setChange={setChange} />
+        setChange={setChange}
+        device={device} />
 
       <Frame />
-      {stageWidth > 900 ? (
+      {device === "desktop" ? (
         <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
       ) : (
           <></>

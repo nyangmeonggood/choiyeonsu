@@ -5,6 +5,7 @@ import {
   setInfoBoxParallex,
   setPositionParallex,
   setTimelineParallex,
+  setTimelineParallexMobile,
   setTitleParallex,
 } from "../hook/Parallex";
 import Frame from "../Components/Frame";
@@ -12,14 +13,13 @@ import ShadowTitle from "../hook/ShadowTitle";
 import CursorCanvas from "../Components/CursorCanvas.js";
 import Next from "../Components/Next";
 import faceImage from "../img/face_circle.png";
-import Logo from "../figure/Logo.js";
 import Circle from "../figure/Circle";
 import Bar from "../figure/Bar";
 import Triangle from "../figure/Triangle";
 import { ColorArray, abilityColorArray } from "../hook/Color.js";
 import "../scss/about.scss";
 
-export default function About({ stageWidth, stageHeight, change, setChange }) {
+export default function About({ stageWidth, stageHeight, change, setChange, device }) {
   const aboutRef = useRef(),
     divLineLeftRef = useRef(),
     divLineRightRef = useRef();
@@ -46,28 +46,47 @@ export default function About({ stageWidth, stageHeight, change, setChange }) {
       document.querySelector(".part2 .content"),
       scrollY
     );
-    setPositionParallex(
-      part[2],
-      document.querySelector(".part3 .content"),
-      scrollY
-    );
 
-    setInfoBoxParallex(part[1], scrollY, part[1], part[2]);
-    part[1].querySelector(
-      ".content .pic img"
-    ).style.width = part[1].querySelector(".content .pic .bg").style.width = `${stageWidth * 0.45
-    }px`;
+    if (document.body.clientWidth >= 900) {
+      part[1].querySelector(
+        ".content .pic img"
+      ).style.width = part[1].querySelector(".content .pic .bg").style.width = `${stageWidth * 0.45
+      }px`;
 
-    for (let i = 0; i < 4; i++) {
-      setAbility(
-        part[2].querySelector(`.content ul li:nth-of-type(${i + 1})`),
-        scrollY,
+      setPositionParallex(
         part[2],
-        i
+        document.querySelector(".part3 .content"),
+        scrollY
       );
+
+      setTimelineParallex(part[3], scrollY);
     }
 
-    setTimelineParallex(part[3], scrollY);
+    if (document.body.clientWidth < 900) {
+      part[1].querySelector(
+        ".content .pic img"
+      ).style.width = part[1].querySelector(".content .pic .bg").style.width = `100%`;
+
+      if (document.querySelector(".mobileInfo").getBoundingClientRect().top < window.innerHeight / 2) {
+        document.querySelector(".mobileInfo").classList.add("active")
+      } else {
+        document.querySelector(".mobileInfo").classList.remove("active")
+      }
+
+      setTimelineParallexMobile(part[3]);
+    }
+
+    setInfoBoxParallex(part[1], scrollY, part[1], part[2]);
+    if (document.body.clientWidth >= 900) {
+      for (let i = 0; i < 4; i++) {
+        setAbility(
+          part[2].querySelector(`.content ul li:nth-of-type(${i + 1})`),
+          scrollY,
+          part[2],
+          i
+        );
+      }
+    }
 
     if (divLineLeftRef.current && divLineRightRef.current) {
       setdivLineRefParallex(
@@ -169,7 +188,6 @@ export default function About({ stageWidth, stageHeight, change, setChange }) {
             <div className="right">
               <div className="balloon">
                 <div className="textBox">
-
                   <p>
                     무한동력이라는 웹툰 속 주인공은 이런 대사를 합니다. '자네는 죽기 전에 못 먹은 밥이 생각나겠는가, 아니면 못 이룬 꿈이 생각나겠는가?'
                     그 대사로 인해 꿈이 무엇인지 하고싶은 일이 무엇인지에 대해서 생각해보게 되었습니다.<br /> 단순히 노동이 아니라 하면서 즐겁고 재밌는 일.
@@ -177,7 +195,6 @@ export default function About({ stageWidth, stageHeight, change, setChange }) {
                     남들보다 조금 늦고 부족할수도 있다는 생각은 저에게 더 노력하라는 채찍질이 되었고
                     지친 저를 다시 일어설 수 있게 만들어 준 큰 힘이 되었습니다. <br /><br />누구보다 노력하고 즐기는 사람, 최연수입니다.
                   </p>
-
                 </div>
                 <figure>
                   <Circle />
@@ -190,6 +207,14 @@ export default function About({ stageWidth, stageHeight, change, setChange }) {
         </div>
 
         <div className="part part3">
+
+          {document.body.clientWidth < 900 && <div className="mobileInfo"><p>
+            무한동력이라는 웹툰 속 주인공은 이런 대사를 합니다. '자네는 죽기 전에 못 먹은 밥이 생각나겠는가, 아니면 못 이룬 꿈이 생각나겠는가?'
+            그 대사로 인해 꿈이 무엇인지 하고싶은 일이 무엇인지에 대해서 생각해보게 되었습니다.<br /><br /> 단순히 노동이 아니라 하면서 즐겁고 재밌는 일.
+            힘들고 고된 업무라도 즐길 수 있는 일. 코딩을 하나씩 배워가면서 오랜 시간 공부해 온 전공을 뒤로하였지만 꿈을 향해 준비해가는 과정이 너무 행복하고 즐거웠습니다.
+            남들보다 조금 늦고 부족할수도 있다는 생각은 저에게 더 노력하라는 채찍질이 되었고
+            지친 저를 다시 일어설 수 있게 만들어 준 큰 힘이 되었습니다. <br /><br />누구보다 노력하고 즐기는 사람, 최연수입니다.
+          </p></div>}
           <div className="content">
             <div id="abilityBG" ref={$AbilityBg}>
               <canvas ref={$bGCanvas}></canvas>
@@ -201,17 +226,16 @@ export default function About({ stageWidth, stageHeight, change, setChange }) {
               </li>
               <li>
                 <div className="blind"></div>
-                <span className="css">CSS, SCSS</span>
+                <span className="css">CSS,<br /> SCSS</span>
               </li>
               <li>
                 <div className="blind"></div>
-                <span className="js">JavaScript, JQuery</span>
+                <span className="js">JavaScript,<br /> JQuery</span>
               </li>
               <li>
                 <div className="blind"></div>
-                <span className="react">React.js</span>
-                ,{" "}
-                <span className="reactnative" style={{ marginLeft: "1vw" }}>React.Native</span>
+                <span className="react">React.js,</span>
+                <span className="reactnative">React.Native</span>
               </li>
             </ul>
             <p className="certificate">
@@ -310,15 +334,15 @@ export default function About({ stageWidth, stageHeight, change, setChange }) {
         </div>
         <Next nextLink={"theKingOfMains"}
           change={change}
-          setChange={setChange} />
+          setChange={setChange}
+          device={device} />
       </section>
       <Frame />
-      {
-        stageWidth > 900 ? (
-          <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
-        ) : (
-            <></>
-          )
+      {device === "desktop" ? (
+        <CursorCanvas stageWidth={stageWidth} stageHeight={stageHeight} />
+      ) : (
+          <></>
+        )
       }
       <div className="divLine divLineLeft" ref={divLineLeftRef}></div>
       <div className="divLine divLineRight" ref={divLineRightRef}></div>

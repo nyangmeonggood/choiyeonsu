@@ -93,12 +93,13 @@ export default function Header({ menu, setMenu }) {
       </header>
 
       <section id="menuModal" ref={menuModalRef}>
-        
-      <p onClick={introOnOff} className="introOnOff">Intro</p>
+
+        <p onClick={introOnOff} className="introOnOff">Intro</p>
         <div className="blink" ref={blinkRef}></div>
         <div className="content">
           <div className="menu" onClick={titleFunc}>
-            CLOSE
+            <span></span>
+            <span></span>
           </div>
           <div className="logo" ref={logoRef}>
             <Logo />

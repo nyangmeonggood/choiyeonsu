@@ -40,7 +40,14 @@
 
     &.part2 {
       overflow: hidden;
-      height: 300vh;
+
+      @media screen and (min-width:900px){
+        height: 300vh;
+      }
+    
+      @media screen and (max-width:900px){
+        height: 180vh;
+      }
 
       .content {
         display: flex;
@@ -269,19 +276,38 @@
     }
 
     &.part3 {
-      height: 400vh;
+      @media screen and (min-width:900px){
+        height: 400vh;
+      }
+            
+      @media screen and (max-width:900px){
+        height: 200vh;
+        font-size: 8vw;;
+      }
 
       #abilityBG {
-        width: 32%;
         height: 100%;
         overflow: hidden;
-        opacity: 0;
         transition: opacity 0.5s;
         background-color: #fff;
+        opacity: 0;
+
+        @media screen and (min-width:900px){
+        width: 32%;
+        }
+      
+        @media screen and (max-width:900px){
+          width:20%;
+        }
       }
-      .content {
+
+      .content {                  
+        @media screen and (max-width:900px){
+          position: absolute;
+          top: 50%;
+        }
+
         > ul {
-          width: 68%;
           height: calc(100% - 116px);
           transform: translateX(1px);
           display: flex;
@@ -291,25 +317,68 @@
           overflow: hidden;
           opacity: 0;
 
+          @media screen and (min-width:900px){
+            width: 68%;
+          }
+                
+          @media screen and (max-width:900px){
+            width: 80%;
+          }
+
           li {
             position: relative;
             width: 100%;
             height: 25%;
-            color: transparent;
             display: flex;
             align-items: center;
             white-space: nowrap;
             @include Black;
             padding-left: 2vw;
             box-sizing: border-box;
+
+            @media screen and (min-width:900px){
+              color: transparent;
+            }
+          
+            @media screen and (max-width:900px){
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: center;
+              border-bottom: 2px solid #111;
+              color: #111;
+
+              &:nth-child(1){
+              border-top: 2px solid #111;
+
+              }
+            }
+
+            br{
+              @media screen and (min-width:900px){
+                display: none;
+              }
+            
+              @media screen and (max-width:900px){
+                display: block;
+              }
+            }
+
             span {
-              display: none;
+              @media screen and (min-width:900px){
+                display: none;
+              }
             }
 
             &.active {
               color: #111;
               span {
                 display: block;
+
+                &.reactnative{
+                  @media screen and (min-width:900px){
+                    margin-left: 1vw;
+                  }
+                }
               }
 
               border-bottom: 2px solid #111;
@@ -368,10 +437,33 @@
           }
         }
       }
+
       &.active {
         #abilityBG,
         .content > ul {
           opacity: 1;
+        }
+      }
+
+      .mobileInfo{
+        position: absolute;
+        top: 0; left: 20px;
+        width: calc(100% - 40px);
+        height: 50vh;
+        display: flex;
+        justify-content: flex-end;
+        opacity: 0;
+
+        &.active{
+          opacity: 1;
+          transition: opacity .5s;
+        }
+
+        p{          
+          width: 83%;
+          font-size: 4.3vw;
+          box-sizing: border-box;
+          padding: 0 10px;
         }
       }
     }
@@ -384,15 +476,27 @@
       h2{
         @include Black;
         color: #111;
+            
+        @media screen and (max-width:900px){
+          font-size: 9vw;
+        }
       }
 
       .timeLine {
         position: absolute;
-        top: 100%;
         left: 50%;
-        transform: translate(-50%, 0);
         width: 80%;
         font-size: 1vw;
+
+        @media screen and (min-width:900px){
+          top: 100%;
+          transform: translate(-50%, 0);
+        }
+      
+        @media screen and (max-width:900px){
+          bottom: 0;
+          transform: translateX(-50%);
+        }
 
         li {
           position: relative;
@@ -400,11 +504,15 @@
           margin-bottom: 20vh;
           box-sizing: border-box;
           line-height: 1em;
-          opacity: 0.5;
           transition: opacity 0.5s ease-in;
 
           @media screen and (min-width:900px){
             padding: 0 60px;
+            opacity: 0.5;
+          }
+      
+          @media screen and (max-width:900px){
+            opacity: 0;
           }
 
           &::before,
@@ -466,7 +574,6 @@
               content: "";
               position: absolute;
               width: 0;
-              height: 60%;
               top: 80%;
               left: -5px;
               transform: translateY(-50%);
@@ -474,6 +581,14 @@
               transition: width 0.5s;
               opacity: 0.6;
               z-index: -1;
+
+              @media screen and (min-width:900px){
+                height: 60%;
+              }
+            
+              @media screen and (max-width:900px){
+                height: 2vw;
+              }
             }
           }
 
@@ -492,8 +607,7 @@
           }
 
           p {
-            color: #111;
-            
+            color: #111;            
 
             @media screen and (min-width:900px){
               line-height: 1.3em;
@@ -598,7 +712,14 @@
       justify-content: space-between;
     }
 
-    &.active {
+    &.active {        
+      @media screen and (max-width:900px){
+        &.part3 .content {
+          position: absolute;
+          top: 50%;
+          border-top: 2px solid #111;
+        }
+      }
       .content {
         position: fixed;
       }
