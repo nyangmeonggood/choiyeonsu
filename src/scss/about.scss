@@ -443,6 +443,9 @@
         .content > ul {
           opacity: 1;
         }
+        #abilityBG{          
+          cursor: pointer;
+        }
       }
 
       .mobileInfo{
@@ -470,8 +473,15 @@
 
     &.part4 {
       border-top: 2px solid #111;
-      height: 400vh;
       overflow: hidden;
+
+      @media screen and (min-width:900px){
+        height: 300vh;
+      }
+    
+      @media screen and (max-width:900px){
+        height: 400vh;
+      }
 
       h2{
         @include Black;
@@ -501,7 +511,7 @@
         li {
           position: relative;
           width: 50%;
-          margin-bottom: 20vh;
+          margin-bottom: 18vh;
           box-sizing: border-box;
           line-height: 1em;
           transition: opacity 0.5s ease-in;

@@ -182,7 +182,7 @@ export function setdivLineRefParallex(
     if (document.body.clientWidth >= 900) {
       returnLeft = returndivLine(
         relativeLineScrollY3,
-        lineDuration,
+        lineDuration / 2,
         3,
         lineParallex
       );

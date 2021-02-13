@@ -18,6 +18,8 @@ export default function Home({ stageWidth, stageHeight, setMenu, change, setChan
       <section id="Home" onClick={toggleMenu}>
         <div id="mainTitleBox">
           <ShadowTitle id={"mainTitle"} text={"ChanceFolio"} />
+
+          <p>Click Anywhere</p>
         </div>
       </section>
       <ParticleCanvas stageWidth={stageWidth} stageHeight={stageHeight} />

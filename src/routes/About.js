@@ -136,6 +136,14 @@ export default function About({ stageWidth, stageHeight, change, setChange, devi
     }
   }, []);
 
+  const colorChange = useCallback(() => {
+    if ($bgArray) {
+      for (let i = 0; i < maxbGCanvasNumber; i++) {
+        $bgArray.current[i].color = abilityColorArray[Math.floor(Math.random() * 4)]
+      }
+    }
+  }, []);
+
   useEffect(() => {
     $bgArray.current = [];
     $bGCanvas.current.width = stageWidth;
@@ -216,7 +224,7 @@ export default function About({ stageWidth, stageHeight, change, setChange, devi
             지친 저를 다시 일어설 수 있게 만들어 준 큰 힘이 되었습니다. <br /><br />누구보다 노력하고 즐기는 사람, 최연수입니다.
           </p></div>}
           <div className="content">
-            <div id="abilityBG" ref={$AbilityBg}>
+            <div id="abilityBG" ref={$AbilityBg} onClick={colorChange}>
               <canvas ref={$bGCanvas}></canvas>
             </div>
             <ul>

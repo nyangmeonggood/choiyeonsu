@@ -95,7 +95,7 @@ export default function Next({ nextLink, change, setChange, device }) {
           <Bar width={30} />
           <Triangle />
         </div>
-        {nextLink}
+        <span>{nextLink}</span>
       </Link>
     </div>
   );

@@ -127,27 +127,25 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
 
         });
     }
-    if (document.querySelector(".toNext")) {
-      document
-        .querySelector(".toNext a")
-        .addEventListener("pointerenter", () => {
-          $Cursor.current[0].text = "CLICK·TO·NEXT·";
-          $Cursor.current[0].size = -75;
-          $Cursor.current[0].angle = $Cursor.current[0].text.length;
-          $Cursor.current[0].numRadsPerLetter =
-            (2 * Math.PI) / $Cursor.current[0].angle;
-          $Cursor.current[0].color = "#FFF";
-        });
+    // if (document.querySelector(".toNext")) {
+    //   if (document.querySelector(".toNext").getBoundingClientRect().top <= window.innerHeight) {
+    //     $Cursor.current[0].text = "CLICK·TO·NEXT·";
+    //     $Cursor.current[0].size = -75;
+    //     $Cursor.current[0].angle = $Cursor.current[0].text.length;
+    //     $Cursor.current[0].numRadsPerLetter =
+    //       (2 * Math.PI) / $Cursor.current[0].angle;
+    //     $Cursor.current[0].color = "#111";
 
-      document.querySelector(".toNext a").addEventListener("pointerout", () => {
-        $Cursor.current[0].text = "SCROLL·DOWN·";
-        $Cursor.current[0].size = -55;
-        $Cursor.current[0].angle = $Cursor.current[0].text.length;
-        $Cursor.current[0].numRadsPerLetter =
-          (2 * Math.PI) / $Cursor.current[0].angle;
-        $Cursor.current[0].color = `rgba(17,17,17,1)`;
-      });
-    }
+    //   } else {
+    //     $Cursor.current[0].text = "SCROLL·DOWN·";
+    //     $Cursor.current[0].size = -55;
+    //     $Cursor.current[0].angle = $Cursor.current[0].text.length;
+    //     $Cursor.current[0].numRadsPerLetter =
+    //       (2 * Math.PI) / $Cursor.current[0].angle;
+    //     $Cursor.current[0].color = `rgba(17,17,17,1)`;
+
+    //   }
+    // }
   });
   // **mouseover
 
@@ -239,20 +237,23 @@ class setCursor {
       this.fontOpacity += 0.01;
     }
     if (this.part === "1") {
-      document.body.style.cursor = "pointer";
+      document.body.style.cursor = "initial";
       this.startRotation -= 0.003;
     }
     if (this.part === "3") {
-      document.body.style.cursor = "pointer";
+      document.body.style.cursor = "initial";
       this.startRotation -= 0.001;
     }
     if (this.part === "2") {
       document.body.style.cursor = "none";
       if (this.current < this.percent) {
-        this.current += 1;
+        this.current += 2;
+      } else if (this.current >= this.percent) {
+        this.current = this.percent;
       }
+
       if (this.abilityArc <= `${this.current / 100}`) {
-        this.abilityArc += 0.015;
+        this.abilityArc += 0.03;
       }
     }
     this.draw(ctx);
