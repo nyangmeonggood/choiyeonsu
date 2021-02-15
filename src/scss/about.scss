@@ -278,6 +278,7 @@
     &.part3 {
       @media screen and (min-width:900px){
         height: 400vh;
+        
       }
             
       @media screen and (max-width:900px){
@@ -316,6 +317,7 @@
           justify-content: center;
           overflow: hidden;
           opacity: 0;
+          cursor: none !important;
 
           @media screen and (min-width:900px){
             width: 68%;

@@ -91,6 +91,29 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
   // mouseenter
   useEffect(() => {
     if (document.querySelector("#about")) {
+      for (let j = 1; j < abilityPercent.length; j++) {
+        document
+          .querySelector(`.part3 ul li:nth-of-type(${j})`)
+          .addEventListener("pointerenter", () => {
+            $Cursor.current[0].text = "CURSOR·ON·TEXT·";
+            $Cursor.current[0].angle = $Cursor.current[0].text.length;
+            $Cursor.current[0].numRadsPerLetter =
+              (2 * Math.PI) / $Cursor.current[0].angle;
+            $Cursor.current[0].fontOpacity = 0
+          });
+
+        document
+          .querySelector(`.part3 ul li:nth-of-type(${j})`)
+          .addEventListener("pointerout", () => {
+            $Cursor.current[0].text = "SCROLL·DOWN·";
+            $Cursor.current[0].angle = $Cursor.current[0].text.length;
+            $Cursor.current[0].numRadsPerLetter =
+              (2 * Math.PI) / $Cursor.current[0].angle;
+            $Cursor.current[0].fontOpacity = 0
+          });
+      }
+
+
       for (let i = 0; i < abilityPercent.length; i++) {
         document
           .querySelector(`.part3 ul li ${abilityPercent[i].className}`)

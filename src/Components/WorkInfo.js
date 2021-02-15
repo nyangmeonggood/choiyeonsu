@@ -8,7 +8,7 @@ export const WorkInfo = {
     Role: "Design, FrontEnd Dev.",
     Language: "HTML, SCSS, Javascript",
     Library: "ReactJS",
-    descTitle: "최고의<br />메인을<br />찾는것",
+    descTitle: "최고의<br /><span>메인</span>을<br />찾는것",
     link: "https://nyangmeonggood.github.io/thekingofmains/",
     desc: `
         홈페이지의 첫 인상을 결정하는 메인 페이지. 다양한 메인들 중 최고의
@@ -32,7 +32,7 @@ export const WorkInfo = {
     Role: "Design, FrontEnd Dev.",
     Language: "HTML, SCSS, Javascript",
     Library: "ReactJS",
-    descTitle: "다양한<br />버튼의<br />세계로",
+    descTitle: "다양한<br /><span>버튼</span>의<br />세계로",
     link: "https://nyangmeonggood.github.io/buttonbutton/",
     desc: `
         다양한 모양, 다양한 방식으로 작동하는 버튼들

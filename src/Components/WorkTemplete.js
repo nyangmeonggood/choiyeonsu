@@ -29,9 +29,15 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight, chan
       setTitleParallex(title, scrollY);
     }
 
+    if (descRef.current) {
+      if (descRef.current.getBoundingClientRect().top <= window.innerHeight * 0.3) {
+        descRef.current.classList.add("active")
+      } else {
+        descRef.current.classList.remove("active")
+      }
+    }
+
     if (imgRef.current) {
-
-
       imgRef.current = document.querySelector(".part3");
       Object.values(imgRef.current.querySelectorAll("h4")).forEach((item) => {
         if (item.getBoundingClientRect().top <= stageHeight * 0.8) {
@@ -72,8 +78,7 @@ export default function WorkTemplete({ text, next, stageWidth, stageHeight, chan
             <div className="descLeft">
               <h3 className="descTitle">{""}</h3>
               <a href="/" target="_blank">
-                {stageWidth > 900 && <span>Link To Site</span>}
-                {stageWidth <= 900 && <span>Link</span>}
+                <span>보러가기</span>
                 <svg
                   viewBox="0 0 13 12"
                   fill="none"

@@ -21,6 +21,16 @@ export default function Next({ nextLink, change, setChange, device }) {
     setChange(true)
   }
 
+
+  if (device === "desktop") {
+    window.scroll(0, 0);
+  }
+
+  if (change) {
+    window.scroll(0, 0);
+    setChange(false)
+  }
+
   const scrollEvent = () => {
     scrollY = window.scrollY;
     toNext = document.querySelector(".toNext");
@@ -69,15 +79,6 @@ export default function Next({ nextLink, change, setChange, device }) {
 
   useEffect(() => {
     clearTimeout(scrollTimeout);
-
-    if (device === "desktop") {
-      window.scroll(0, 0);
-    }
-
-    if (change) {
-      window.scroll(0, 0);
-      setChange(false)
-    }
 
     window.addEventListener("scroll", () => {
       scrollEvent();
