@@ -14,19 +14,19 @@ export default function WORK_BUTTONBUTTON() {
     <>
       <li className=" sgap">
         <div className="imgBox">
-          <img src={img0} />
+          <img src={img0} alt="main" />
         </div>
       </li>
       <li>
         <div className="imgBox">
-          <img src={img1} />
+          <img src={img1} alt="main" />
         </div>
       </li>
 
       <li className="multi start thumbnail">
         {document.body.clientWidth >= 900 && <>
           <div className="bigImg" style={{ width: "33.33%" }}>
-            <img src={img4} className="m" />
+            <img src={img4} className="m" alt="thumbnail" />
           </div></>}
         <div className="textBox left">
           <h4>Thumbnail</h4>
@@ -40,7 +40,7 @@ export default function WORK_BUTTONBUTTON() {
         </div>
         {document.body.clientWidth < 900 && <>
           <div className="bigImg" style={{ width: "100%" }}>
-            <img src={img4} className="m" />
+            <img src={img4} className="m" alt="thumbnail" />
           </div></>}
       </li>
 
@@ -58,8 +58,8 @@ export default function WORK_BUTTONBUTTON() {
 
       <li>
         <div className="imgBox">
-          <img src={img0} />
-          <img src={gif0} className="gif" />
+          <img src={img0} alt="mainChange" />
+          <img src={gif0} className="gif" alt="mainChange" />
         </div>
       </li>
 
@@ -75,8 +75,8 @@ export default function WORK_BUTTONBUTTON() {
       <li>
         <div className="imgBox right">
           <div className="gifBox">
-            <img src={img3} />
-            <img src={gif1} className="gif" />
+            <img src={img3} alt="filter" />
+            <img src={gif1} className="gif" alt="filter" />
           </div>
         </div>
       </li>
@@ -92,8 +92,8 @@ export default function WORK_BUTTONBUTTON() {
       <li>
         <div className="imgBox left">
           <div className="gifBox">
-            <img src={img2} />
-            <img src={gif2} className="gif" />
+            <img src={img2} alt="inputChange" />
+            <img src={gif2} className="gif" alt="inputChange" />
           </div>
         </div>
       </li>
@@ -103,10 +103,10 @@ export default function WORK_BUTTONBUTTON() {
           <h4>Mobile</h4>
         </div>
         <div>
-          <img src={img5} className="s" />
+          <img src={img5} className="s" alt="mobile1" />
         </div>
         <div>
-          <img src={img6} className="s" />
+          <img src={img6} className="s" alt="mobile2" />
         </div>
       </li>
     </>

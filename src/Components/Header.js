@@ -38,7 +38,8 @@ export default function Header({ menu, setMenu }) {
     document.querySelector(".introOnOff").classList.toggle("active")
     if (window.localStorage.getItem("Intro") === "false") {
       window.localStorage.setItem("Intro", true);
-      // window.location.replace("/choiyeonsu/#/");
+      window.location.replace("/choiyeonsu/#/");
+      window.location.reload();
       return
     }
     if (window.localStorage.getItem("Intro") === "true") {

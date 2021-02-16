@@ -171,10 +171,10 @@ class SetIntroParticleCanvas {
       ctx.translate(this.x, this.y);
       ctx.rotate(
         Math.PI / this.angle +
-          Math.atan2(
-            this.stageWidth / 2 - this.x,
-            -this.stageHeight / 2 + this.y
-          )
+        Math.atan2(
+          this.stageWidth / 2 - this.x,
+          -this.stageHeight / 2 + this.y
+        )
       );
 
       for (let i = 0; i < this.angle; i++) {

@@ -114,13 +114,12 @@
 
           @media screen and (min-width:900px){
             font-size: 4vw;
-            h2{
-          margin-bottom: 25px;
-            }
           }
         
           @media screen and (max-width:900px){
             font-size: 10vw;
+            
+          margin-bottom: 25px;
           }
         }
 
