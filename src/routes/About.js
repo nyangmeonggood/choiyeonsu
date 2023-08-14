@@ -230,15 +230,15 @@ export default function About({ stageWidth, stageHeight, change, setChange, devi
             <ul>
               <li>
                 <div className="blind"></div>
-                <span className="html">HTML</span>
-              </li>
-              <li>
-                <div className="blind"></div>
-                <span className="css">CSS,<br /> SCSS</span>
+                <span className="html">HTML,<br /> CSS,<br /> SCSS</span>
               </li>
               <li>
                 <div className="blind"></div>
                 <span className="js">JavaScript,<br /> JQuery</span>
+              </li>
+              <li>
+                <div className="blind"></div>
+                <span className="util">Webpack,<br /> Gulp</span>
               </li>
               <li>
                 <div className="blind"></div>
@@ -332,10 +332,21 @@ export default function About({ stageWidth, stageHeight, change, setChange, devi
               <h6>경력</h6>
               <b>2019.10 - 2020.09</b>
               <p>뮬라웨어</p>
-              <span>웹개발팀, IMC팀 근무</span>
+              <span>웹개발팀, IMC팀 근무 : 사원</span>
               <span>
                 자사몰 홈페이지 퍼블리싱 업무
                 <br />및 자사 온라인 컨텐츠 코딩 관련 업무
+              </span>
+            </li>
+
+            <li className="job">
+              <h6>경력</h6>
+              <b>2021.03 - 현재</b>
+              <p>더즈 인터랙티브</p>
+              <span>프론트앤드팀 근무 : 책임</span>
+              <span>
+                기업사이트 리뉴얼, 운영 유지보수 등
+                <br />프로젝트 PL, 페이지 제작 업무
               </span>
             </li>
           </ul>

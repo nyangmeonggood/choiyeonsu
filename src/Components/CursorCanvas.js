@@ -12,8 +12,8 @@ export default function CursorCanvas({ stageWidth, stageHeight }) {
 
   const abilityPercent = [
     { className: ".html", color: "#ea642d", percent: 90 },
-    { className: ".css", color: "#2ea5d6", percent: 95 },
     { className: ".js", color: "#eab925", percent: 95 },
+    { className: ".util", color: "#2ea5d6", percent: 85 },
     { className: ".react", color: "#5ed3f3", percent: 85 },
     { className: ".reactnative", color: "#5ed3f3", percent: 70 },
   ];
