@@ -341,7 +341,7 @@ export default function About({ stageWidth, stageHeight, change, setChange, devi
 
             <li className="job">
               <h6>경력</h6>
-              <b>2021.03 - 현재</b>
+              <b>2021.03 - 2024.03</b>
               <p>더즈 인터랙티브</p>
               <span>프론트앤드팀 근무 : 책임</span>
               <span>
